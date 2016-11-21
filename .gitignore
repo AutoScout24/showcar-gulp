@@ -1,4 +1,4 @@
-dist/*
+test/dist/*
 
 # Created by https://www.gitignore.io/api/node,git,intellij,webstorm,code,macos
 

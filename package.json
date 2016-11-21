@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/AutoScout24/showcar-gulp#readme",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-stylelint": "^3.4.0"
   },
   "dependencies": {
     "gulp-clean": "^0.3.2",

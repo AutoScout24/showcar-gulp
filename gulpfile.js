@@ -17,8 +17,6 @@ scgulp.registerTasks({
         path: ['test/dist/**/*']
     }
     // browser-sync
-    // clean
-    // stylelint
 });
 
 gulp.task('build', ['custom-js', 'scss']);
