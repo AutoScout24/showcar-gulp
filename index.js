@@ -26,49 +26,10 @@ module.exports = (gulp) => {
         }
     };
 
-    // const plugins = require('gulp-load-plugins')();
-    //
-    // const distDir = 'dist';
-    // const staticDir = `${distDir}`;
-    //
-    // const options = {
-    //     env: {
-    //         production: true
-    //     },
-    //     js: {
-    //         entry: 'src/js/main.js',
-    //         out: `${staticDir}/main.min.js`
-    //     },
-    //     sass: {
-    //         entry: 'src/scss/main.scss',
-    //         out: `${staticDir}/main.min.css`
-    //     }
-    // };
-    //
-    // const loadTask = name => {
-    //     const task = require(`./gulptasks/${name}`);
-    //     return () => task(gulp, plugins, options);
-    // };
-    //
     // gulp.task('set-dev', () => options.env.production = false);
-    //
     // gulp.task('clean', loadTask('clean'));
-    // gulp.task('rollup', loadTask('rollup'));
-    // gulp.task('sass', loadTask('sass'));
     // gulp.task('browser-sync', loadTask('browser-sync'));
-    //
-    // gulp.task('rollup:watch', () => {
-    //     const path = require('path');
-    //     // gulp.watch(path.basename(options.js.entry), ['rollup']);
-    //     gulp.watch('src/**/*.js', ['rollup']);
-    // });
-    //
-    // gulp.task('sass:watch', () => {
-    //     const path = require('path');
-    //
-    //     gulp.watch('src/scss/**/*.scss', ['sass']);
-    // });
-    //
+
     // gulp.task('lint-css', () => {
     //     const gulpStylelint = require('gulp-stylelint');
     //
