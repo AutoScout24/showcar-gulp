@@ -12,7 +12,13 @@ scgulp.registerTasks({
         entry: 'test/scss-src/main.scss',
         out: 'test/dist/main.min.css',
         watch: 'test/scss-src/**/*.scss'
+    },
+    clean: {
+        path: ['test/dist/**/*']
     }
+    // browser-sync
+    // clean
+    // stylelint
 });
 
 gulp.task('build', ['custom-js', 'scss']);
