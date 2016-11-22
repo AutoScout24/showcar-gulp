@@ -1,5 +1,7 @@
 'use strict';
 
+const globalConfig = require('./global-config');
+
 const registerTask = (gulp, name, type, options) => {
     try {
 
@@ -24,9 +26,8 @@ module.exports = (gulp) => {
                 const taskOptions = options[taskName];
                 registerTask(gulp, taskName, taskOptions.type || taskName, taskOptions);
             });
-        }
-    };
+        },
 
-    // gulp.task('set-dev', () => options.env.production = false);
-    // gulp.task('dev', ['set-dev', 'rollup:watch', 'sass:watch', 'browser-sync']);
+        get config() { return globalConfig; }
+    };
 };

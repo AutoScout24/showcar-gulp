@@ -12,6 +12,8 @@ const eslint = require('rollup-plugin-eslint');
 const uglify = require('rollup-plugin-uglify');
 const filesize = require('rollup-plugin-filesize');
 
+const globalConfig = require('../global-config');
+
 module.exports = (gulp, options) => {
     const filename = path.basename(options.out);
     const filepath = path.dirname(options.out);
@@ -23,11 +25,14 @@ module.exports = (gulp, options) => {
         plugins: [
             nodeResolve({ jsnext: true, main: true }),
             commonjs(),
-            buble(),
-            uglify(),
-            filesize()
+            buble()
         ]
     };
+
+    if (!globalConfig.devmode) {
+        config.plugins.push(uglify());
+        config.plugins.push(filesize());
+    }
 
     return gulp.src('**/*.js')
                .pipe(sourcemaps.init())

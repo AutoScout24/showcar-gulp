@@ -25,6 +25,10 @@ scgulp.registerTasks({
     }
 });
 
+gulp.task('set-dev', () => {
+    scgulp.config.devmode = true;
+});
+
 gulp.task('build', ['js', 'scss']);
 
-gulp.task('dev', ['js:watch', 'scss:watch', 'serve']);
+gulp.task('dev', ['set-dev', 'js:watch', 'scss:watch', 'serve']);
