@@ -1,6 +1,10 @@
 var cache = null;
 
-const rollup = require('rollup');
+const path = require('path');
+const sourcemaps = require('gulp-sourcemaps');
+const rename = require('gulp-rename');
+const rollup = require('gulp-rollup');
+
 const buble = require('rollup-plugin-buble');
 const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
@@ -9,10 +13,13 @@ const uglify = require('rollup-plugin-uglify');
 const filesize = require('rollup-plugin-filesize');
 
 module.exports = (gulp, options) => {
+    const filename = path.basename(options.out);
+    const filepath = path.dirname(options.out);
 
     const config = {
         entry: options.entry,
         cache,
+        rollup: require('rollup'),
         plugins: [
             nodeResolve({ jsnext: true, main: true }),
             commonjs(),
@@ -22,13 +29,10 @@ module.exports = (gulp, options) => {
         ]
     };
 
-    return rollup.rollup(config).then(bundle => {
-        cache = bundle;
-
-        return bundle.write({
-            format: 'iife',
-            dest: options.out,
-            sourceMap: true
-        });
-    });
+    return gulp.src('**/*.js')
+               .pipe(sourcemaps.init())
+               .pipe(rollup(config))
+               .pipe(rename(filename))
+               .pipe(sourcemaps.write('./', { sourceMappingURLPrefix: options.sourceMappingURLPrefix }))
+               .pipe(gulp.dest(filepath))
 };

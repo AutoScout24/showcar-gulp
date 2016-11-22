@@ -18,6 +18,6 @@ module.exports = (gulp, options) => {
                 }).on('error', sass.logError))
                 .pipe(pleeease())
                 .pipe(rename(filename))
-                .pipe(sourcemaps.write('./'))
+                .pipe(sourcemaps.write('./', { sourceMappingURLPrefix: options.sourceMappingURLPrefix }))
                 .pipe(gulp.dest(filepath));
 };
