@@ -15,8 +15,13 @@ scgulp.registerTasks({
     },
     clean: {
         path: ['test/dist/**/*']
+    },
+    serve: {
+        dir: 'test/dist',
+        // port: 8080
     }
-    // browser-sync
 });
 
-gulp.task('build', ['custom-js', 'scss']);
+gulp.task('build', ['js', 'scss']);
+
+gulp.task('dev', ['js:watch', 'scss:watch', 'serve']);
