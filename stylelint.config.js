@@ -1,4 +1,4 @@
-{
+module.exports = {
   "rules": {
     "max-empty-lines": 2,
     "indentation": 2,
@@ -6,4 +6,4 @@
     "no-duplicate-selectors": true,
     "string-quotes": "single"
   }
-}
+};
