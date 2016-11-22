@@ -2,6 +2,15 @@
 
 Shared build steps for projects using the ShowCar UI Library
 
+## Install
+```
+npm install showcar-gulp -D
+```
+
+## Usage
+
+Create your own `gulpfile.js`.
+
 ```js
 // gulpfile.js
 
@@ -42,6 +51,10 @@ scgulp.registerTasks({
     }
 });
 
+gulp.task('set-dev', () => {
+    scgulp.config.devmode = true;
+});
+
 gulp.task('build', [
     'scss',
     'js'
@@ -49,4 +62,11 @@ gulp.task('build', [
 
 gulp.task('dev', ['set-dev', 'scss:watch', 'js:watch', 'serve']);
 gulp.task('default', ['build']);
+```
+
+## Compatibility with Grunt
+
+```
+npm install gulp-grunt -D
+...
 ```
