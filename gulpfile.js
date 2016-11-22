@@ -3,20 +3,23 @@ const scgulp = require('.')(gulp);
 
 scgulp.registerTasks({
     js: {
-        // name: 'custom-js',
+        type: 'js',
         entry: 'test/js-src/main.entry.js',
         out: 'test/dist/main.min.js',
         watch: 'test/js-src/**/*.js'
     },
     scss: {
+        type: 'scss',
         entry: 'test/scss-src/main.scss',
         out: 'test/dist/main.min.css',
         watch: 'test/scss-src/**/*.scss'
     },
     clean: {
+        type: 'clean',
         path: ['test/dist/**/*']
     },
     serve: {
+        type: 'serve',
         dir: 'test/dist',
         // port: 8080
     }

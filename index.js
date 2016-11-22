@@ -1,16 +1,14 @@
 'use strict';
 
-const registerTask = (gulp, name, options) => {
+const registerTask = (gulp, name, type, options) => {
     try {
 
-        const task = () => require(`./gulptasks/${name}`)(gulp, options);
-        const taskname = options.name || name;
-
-        gulp.task(taskname, task);
+        const task = () => require(`./gulptasks/${type}`)(gulp, options);
+        gulp.task(name, task);
 
         if (options.watch) {
-            gulp.task(`${taskname}:watch`, [taskname], () => {
-                gulp.watch(options.watch, [taskname]);
+            gulp.task(`${name}:watch`, [name], () => {
+                gulp.watch(options.watch, [name]);
             });
         }
 
@@ -22,7 +20,10 @@ const registerTask = (gulp, name, options) => {
 module.exports = (gulp) => {
     return {
         registerTasks(options) {
-            Object.keys(options).forEach(name => registerTask(gulp, name, options[name]));
+            Object.keys(options).forEach(taskName => {
+                const taskOptions = options[taskName];
+                registerTask(gulp, taskName, taskOptions.type, taskOptions);
+            });
         }
     };
 
