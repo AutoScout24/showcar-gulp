@@ -25,6 +25,7 @@
   "dependencies": {
     "browser-sync": "^2.18.2",
     "gulp-clean": "^0.3.2",
+    "gulp-eslint": "^3.0.1",
     "gulp-pleeease": "^2.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
