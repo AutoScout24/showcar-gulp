@@ -9,30 +9,44 @@ const gulp = require('gulp');
 const scgulp = require('showcar-gulp')(gulp);
 
 scgulp.registerTasks({
+    clean: {
+        files: ['dist/**/*']
+    },
+    stylelint: {
+        files: 'src/**/*.scss',
+    },
     scss: {
-        type: 'scss',
+        dependencies: ['stylelint'],
         entry: 'src/main.scss',
         out: 'dist/showcar.min.css',
         watch: 'src/**/*.scss'
     },
     'scss:docs': {
+        dependencies: ['stylelint'],
         type: 'scss',
         entry: 'src/docs/docs.scss',
         out: 'dist/docs.min.css',
         watch: 'src/**/*.scss'
     },
-    stylelint: {
-        type: 'stylelint',
-        files: 'src/**/*.scss',
-        watch: 'src/**/*.scss'
+    eslint: {
+        files: 'src/**/*.js'
     },
-    clean: {
-        type: 'clean',
-        files: ['dist/**/*']
+    js: {
+        dependencies: ['eslint'],
+        entry: 'src/main.js',
+        out: 'dist/showcar.min.js',
+        watch: 'src/**/*.js'
     },
     serve: {
-        type: 'serve',
         dir: 'dist',
     }
 });
+
+gulp.task('build', [
+    'scss',
+    'js'
+]);
+
+gulp.task('dev', ['set-dev', 'scss:watch', 'js:watch', 'serve']);
+gulp.task('default', ['build']);
 ```
