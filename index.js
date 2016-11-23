@@ -5,7 +5,7 @@ const globalConfig = require('./global-config');
 const registerTask = (gulp, name, type, options) => {
     try {
 
-        const task = () => require(`./gulptasks/${type}`)(gulp, options);
+        const task = done => require(`./gulptasks/${type}`)(gulp, options, done);
         gulp.task(name, options.dependencies || [], task);
 
         if (options.watch) {

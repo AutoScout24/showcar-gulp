@@ -23,7 +23,7 @@ module.exports = (gulp, options) => {
         cache,
         rollup: require('rollup'),
         plugins: [
-            nodeResolve({ jsnext: true, main: true }),
+            nodeResolve({ jsnext: true, main: true, browser: true }),
             commonjs(),
             buble()
         ]
