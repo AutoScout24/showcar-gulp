@@ -35,7 +35,7 @@ module.exports = (gulp, options) => {
     }
 
     return gulp.src('**/*.js')
-               .pipe(sourcemaps.init())
+               .pipe(sourcemaps.init({ loadMaps: true }))
                .pipe(rollup(config))
                .pipe(rename(filename))
                .pipe(sourcemaps.write('./', { sourceMappingURLPrefix: options.sourceMappingURLPrefix }))
