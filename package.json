@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/AutoScout24/showcar-gulp#readme",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^3.9.1"
   },
   "dependencies": {
     "browser-sync": "^2.18.2",
