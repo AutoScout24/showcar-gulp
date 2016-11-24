@@ -21,7 +21,7 @@ describe('Test suite 3', () => {
 
     it('module', () => {
         debugger;
-        expect(add(3, 4)).to.equal(712);
+        expect(add(3, 4)).to.equal(7);
     });
 
     it('subtract', () => {

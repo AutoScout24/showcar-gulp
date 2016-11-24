@@ -13,29 +13,21 @@ scgulp.registerTasks({
         watch: 'test/scss-src/**/*.scss'
     },
     clean: {
-        // type: 'clean',
         path: ['test/dist/**/*']
     },
     serve: {
         dir: 'test/dist',
-        // port: 8080
     },
-
-    // jstest: {
-    //     type: 'js',
-    //     entry: 'test/test-src/main.spec.js',
-    //     out: 'test/dist/main.min.spec.js',
-    //     watch: ['test/test-src/**/*.js', 'test/js-src/**/*.js'],
-    //     sourceMappingURLPrefix: '/base/test/dist'
-    // },
-    // karma: {
-    //     dependencies: ['jstest'],
-    //     // files: ['test/dist/**/*.spec.js']
-    //     files: [
-    //         { pattern: 'test/dist/**/*.spec.js', included: true, served: true, watched: true },
-    //         { pattern: 'test/dist/**/*.spec.js.map', included: false, served: true, watched: false }
-    //     ]
-    // }
+    jstest: {
+        type: 'js',
+        entry: 'test/test-src/main.spec.js',
+        out: 'test/dist/main.min.spec.js',
+        watch: ['test/test-src/**/*.js', 'test/js-src/**/*.js'],
+    },
+    karma: {
+        dependencies: ['jstest'],
+        files: ['test/dist/main.min.spec.js'],
+    }
 });
 
 gulp.task('set-dev', () => {
@@ -44,4 +36,4 @@ gulp.task('set-dev', () => {
 
 gulp.task('build', ['js', 'scss']);
 
-gulp.task('dev', ['set-dev', 'js:watch', 'scss:watch', 'serve']);
+gulp.task('dev', ['set-dev', 'js:watch', 'jstest:watch', 'karma', 'scss:watch', 'serve']);
