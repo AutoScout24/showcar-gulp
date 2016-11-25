@@ -7,6 +7,14 @@ Shared build steps for projects using the ShowCar UI Library
 npm install showcar-gulp -D
 ```
 
+## Before starting
+
+Install gulp
+
+```
+npm install gulp -D
+```
+
 ## Usage
 
 Create your own `gulpfile.js`.
@@ -24,6 +32,9 @@ scgulp.registerTasks({
     stylelint: {
         files: 'src/**/*.scss',
     },
+    eslint: {
+        files: 'src/**/*.js'
+    },
     scss: {
         dependencies: ['stylelint'],
         entry: 'src/main.scss',
@@ -37,14 +48,15 @@ scgulp.registerTasks({
         out: 'dist/docs.min.css',
         watch: 'src/**/*.scss'
     },
-    eslint: {
-        files: 'src/**/*.js'
-    },
     js: {
         dependencies: ['eslint'],
         entry: 'src/main.js',
         out: 'dist/showcar.min.js',
-        watch: 'src/**/*.js'
+        watch: 'src/**/*.js',
+        rollupConfig: {
+            moduleName: 'yourModuleName',
+            format: 'iife'
+        }
     },
     serve: {
         dir: 'dist',
@@ -62,6 +74,63 @@ gulp.task('build', [
 
 gulp.task('dev', ['set-dev', 'scss:watch', 'js:watch', 'serve']);
 gulp.task('default', ['build']);
+```
+
+For running linter tasks you will also need to create a configuration files
+
+for eslint `.eslintrc.js`
+
+```js
+module.exports = {
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "worker": true,
+        "mocha": true,
+        "jasmine": true,
+        "jquery": true,
+        "serviceworker": true
+    },
+    "globals": {
+        "expect": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "quotes": [
+           "error",
+           "single",
+           { "allowTemplateLiterals": true }
+       ],
+       "no-console": "warn",
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+};
+```
+
+for stylelint `stylelint.config.js`
+
+```js
+module.exports = {
+  "rules": {
+    "max-empty-lines": 2,
+    "indentation": 2,
+    "length-zero-no-unit": true,
+    "no-duplicate-selectors": true,
+    "string-quotes": "single"
+  }
+};
 ```
 
 ## Compatibility with Grunt
