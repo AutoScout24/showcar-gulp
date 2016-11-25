@@ -5,7 +5,11 @@ scgulp.registerTasks({
     js: {
         entry: 'test/js-src/main.entry.js',
         out: 'test/dist/main.min.js',
-        watch: 'test/js-src/**/*.js'
+        watch: 'test/js-src/**/*.js',
+        rollupConfig: {
+            format: 'iife',
+            moduleName: 'asdf'
+        }
     },
     scss: {
         entry: 'test/scss-src/main.scss',

@@ -23,7 +23,7 @@ module.exports = (gulp, options) => {
     const filename = path.basename(options.out);
     const filepath = path.dirname(options.out);
 
-    const config = {
+    const config = Object.assign({
         entry: options.entry,
         cache,
         rollup: require('rollup'),
@@ -35,7 +35,9 @@ module.exports = (gulp, options) => {
             buble()
         ],
         sourceMap: true
-    };
+    }, options.rollupConfig);
+
+
 
     if (!globalConfig.devmode) {
         config.plugins.push(uglify());
