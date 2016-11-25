@@ -126,7 +126,14 @@ clean: {
 
 ## Karma task
 
-TBU
+Runs karma tests
+
+```js
+karma: {
+    dependencies: ['jstest'],
+    files: ['dist/index.spec.js']
+}
+```
 
 ## Compatibility with Grunt (?)
 
