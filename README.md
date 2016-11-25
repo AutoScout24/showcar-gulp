@@ -17,7 +17,7 @@ npm install gulp -D
 
 ## Usage
 
-Create your own `gulpfile.js`.
+Create your own `gulpfile.js` with the following structure
 
 ```js
 // gulpfile.js
@@ -26,43 +26,10 @@ const gulp = require('gulp');
 const scgulp = require('showcar-gulp')(gulp);
 
 scgulp.registerTasks({
-    clean: {
-        files: ['dist/**/*']
-    },
-    stylelint: {
-        files: 'src/**/*.scss',
-    },
-    eslint: {
-        files: 'src/**/*.js'
-    },
-    scss: {
-        dependencies: ['stylelint'],
-        entry: 'src/main.scss',
-        out: 'dist/showcar.min.css',
-        watch: 'src/**/*.scss'
-    },
-    'scss:docs': {
-        dependencies: ['stylelint'],
-        type: 'scss',
-        entry: 'src/docs/docs.scss',
-        out: 'dist/docs.min.css',
-        watch: 'src/**/*.scss'
-    },
-    js: {
-        dependencies: ['eslint'],
-        entry: 'src/main.js',
-        out: 'dist/showcar.min.js',
-        watch: 'src/**/*.js',
-        rollupConfig: {
-            moduleName: 'yourModuleName',
-            format: 'iife'
-        }
-    },
-    serve: {
-        dir: 'dist',
-    }
+    // here goes the tasks configuration
 });
 
+// gulp tasks alliases
 gulp.task('set-dev', () => {
     scgulp.config.devmode = true;
 });
@@ -76,64 +43,92 @@ gulp.task('dev', ['set-dev', 'scss:watch', 'js:watch', 'serve']);
 gulp.task('default', ['build']);
 ```
 
-For running linter tasks you will also need to create a configuration files
+## Build tasks
 
-for eslint `.eslintrc.js`
+JS
+Builds and minimises and uglifies your js files
 
 ```js
-module.exports = {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true,
-        "node": true,
-        "worker": true,
-        "mocha": true,
-        "jasmine": true,
-        "jquery": true,
-        "serviceworker": true
-    },
-    "globals": {
-        "expect": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "sourceType": "module"
-    },
-    "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "quotes": [
-           "error",
-           "single",
-           { "allowTemplateLiterals": true }
-       ],
-       "no-console": "warn",
-        "semi": [
-            "error",
-            "always"
-        ]
+js: {
+    dependencies: ['eslint'],         // optional
+    entry: 'src/main.js',
+    out: 'dist/main.min.js',
+    watch: 'src/**/*.js',
+    rollupConfig: {
+        moduleName: 'yourModuleName',
+        format: 'iife'
     }
-};
+}
 ```
 
-for stylelint `stylelint.config.js`
+SCSS
+Builds css from sass files and minimises it
 
 ```js
-module.exports = {
-  "rules": {
-    "max-empty-lines": 2,
-    "indentation": 2,
-    "length-zero-no-unit": true,
-    "no-duplicate-selectors": true,
-    "string-quotes": "single"
-  }
-};
+scss: {
+    dependencies: ['stylelint'],      // optional
+    entry: 'src/main.scss',
+    out: 'dist/showcar.min.css',
+    watch: 'src/**/*.scss'
+}
 ```
 
-## Compatibility with Grunt
+## Linter tasks
+
+Optional tasks for linting code style
+
+```js
+eslint: {
+    files: 'src/**/*.js'
+},
+
+stylelint: {
+    files: 'src/**/*.scss'
+}
+```
+
+For running linter tasks you will also need to create a configuration files.
+You could add custom rules to configuration files.
+
+`.eslintrc.js` for eslint task
+
+```js
+module.exports = Object.assign(require('showcar-gulp/.eslintrc.js'), {
+    // custom rules here
+});
+```
+
+`stylelint.config.js` for stylelint task
+
+```js
+module.exports = Object.assign(require('showcar-gulp/.stylelintrc.js'), {
+    // custom rules here
+});
+```
+
+## Clean task
+Simply cleans dist folder
+
+```js
+serve: {
+    dir: 'dist'
+}
+```
+
+## Serve task
+Runs a local server on localhost:3000 by default
+
+```js
+clean: {
+    files: ['dist/**/*']
+}
+```
+
+## Karma task
+
+TBU
+
+## Compatibility with Grunt (?)
 
 ```
 npm install gulp-grunt -D
