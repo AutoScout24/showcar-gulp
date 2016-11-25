@@ -129,10 +129,68 @@ clean: {
 Runs karma tests
 
 ```js
+jstest: {
+    type: 'js',
+    entry: 'src/main.spec.js',
+    out: 'dist/main.min.spec.js',
+    watch: ['test-src/**/*.js', 'js-src/**/*.js'],
+},
+
 karma: {
     dependencies: ['jstest'],
     files: ['dist/index.spec.js']
 }
+```
+
+## Usage example
+
+This is a working example, that shows all posible build tasks
+
+```js
+const gulp = require('gulp');
+const scgulp = require('showcar-gulp')(gulp);
+
+scgulp.registerTasks({
+    js: {
+        entry: 'src/main.entry.js',
+        out: 'dist/main.min.js',
+        watch: 'src/**/*.js',
+        rollupConfig: {
+            format: 'iife',
+            moduleName: 'yourModuleName'
+        }
+    },
+    scss: {
+        entry: 'src/main.scss',
+        out: 'dist/main.min.css',
+        watch: 'src/**/*.scss'
+    },
+    clean: {
+        path: ['dist/**/*']
+    },
+    serve: {
+        dir: 'dist',
+    },
+    jstest: {
+        type: 'js',
+        entry: 'src/main.spec.js',
+        out: 'dist/main.min.spec.js',
+        watch: ['test-src/**/*.js', 'js-src/**/*.js'],
+    },
+    karma: {
+        dependencies: ['jstest'],
+        files: ['dist/main.min.spec.js'],
+    }
+});
+
+gulp.task('set-dev', () => {
+    scgulp.config.devmode = true;
+});
+
+gulp.task('build', ['js', 'scss']);
+
+gulp.task('dev', ['set-dev', 'js:watch', 'jstest:watch', 'karma', 'scss:watch', 'serve']);
+
 ```
 
 ## Compatibility with Grunt (?)
