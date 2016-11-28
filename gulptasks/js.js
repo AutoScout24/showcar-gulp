@@ -31,8 +31,7 @@ module.exports = (gulp, options) => {
             nodeResolve({ jsnext: true, main: true, browser: true }),
             commonjs(),
             buble()
-        ],
-        sourceMap: true
+        ]
     }, options.rollupConfig);
 
 
