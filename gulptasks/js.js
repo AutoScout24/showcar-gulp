@@ -34,8 +34,6 @@ module.exports = (gulp, options) => {
         ]
     }, options.rollupConfig);
 
-
-
     if (!globalConfig.devmode) {
         config.plugins.push(uglify());
         config.plugins.push(filesize());
