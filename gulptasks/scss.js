@@ -16,7 +16,10 @@ module.exports = (gulp, options) => {
     return gulp.src(options.entry)
                 .pipe(sourcemaps.init())
                 .pipe(sass({
-                    importer: require('node-sass-import'),
+                    importer: (path, ...args) => {
+                        const sanitizedPath = path.replace(/npm\:/, '');
+                        return require('node-sass-import')(sanitizedPath, ...args);
+                    },
                 }).on('error', sass.logError))
                 .pipe(pleeease({
                     autoprefixer: {
