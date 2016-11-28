@@ -15,7 +15,6 @@ const eslint = require('rollup-plugin-eslint');
 const uglify = require('rollup-plugin-uglify');
 const filesize = require('rollup-plugin-filesize');
 const builtins = require('rollup-plugin-node-builtins');
-// const globals = require('rollup-plugin-node-globals');
 
 const globalConfig = require('../global-config');
 
@@ -28,7 +27,6 @@ module.exports = (gulp, options) => {
         cache,
         rollup: require('rollup'),
         plugins: [
-            // globals(),
             builtins(),
             nodeResolve({ jsnext: true, main: true, browser: true }),
             commonjs(),
