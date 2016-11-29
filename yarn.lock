@@ -3450,7 +3450,7 @@ node-sass-import:
     resolve "^1.1.7"
     yargs "^3.15.0"
 
-node-sass@^3.4.2:
+node-sass@^3.10.1, node-sass@^3.4.2:
   version "3.13.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-3.13.0.tgz#d08b95bdebf40941571bd2c16a9334b980f8924f"
   dependencies:
@@ -3520,6 +3520,10 @@ normalize-range@^0.1.2:
 normalize-selector@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/normalize-selector/-/normalize-selector-0.2.0.tgz#d0b145eb691189c63a78d201dc4fdb1293ef0c03"
+
+normalize.css@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-5.0.0.tgz#7cec875ce8178a5333c4de80b68ea9c18b9d7c37"
 
 npmlog@^4.0.0:
   version "4.0.1"
@@ -4452,6 +4456,13 @@ rollup-plugin-node-resolve@^2.0.0:
     browser-resolve "^1.11.0"
     builtin-modules "^1.1.0"
     resolve "^1.1.6"
+
+rollup-plugin-scss:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-scss/-/rollup-plugin-scss-0.1.0.tgz#4756cee7ea08ba2ddea26b4ddf4c943d62882221"
+  dependencies:
+    node-sass "^3.10.1"
+    rollup-pluginutils "^1.5.2"
 
 rollup-plugin-uglify@^1.0.1:
   version "1.0.1"
