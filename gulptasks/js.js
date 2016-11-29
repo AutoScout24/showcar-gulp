@@ -15,7 +15,7 @@ const eslint = require('rollup-plugin-eslint');
 const uglify = require('rollup-plugin-uglify');
 const filesize = require('rollup-plugin-filesize');
 const builtins = require('rollup-plugin-node-builtins');
-const scss = require('rollup-plugin-scss');
+const sass = require('rollup-plugin-sass');
 
 const globalConfig = require('../global-config');
 
@@ -28,9 +28,12 @@ module.exports = (gulp, options) => {
         cache,
         rollup: require('rollup'),
         plugins: [
-            scss({
+            sass({
                 output: false,
-                include: '**/*.scss'
+                // include: '**/*.scss',
+                options: {
+                    outputStyle: 'compressed'
+                }
             }),
             builtins(),
             nodeResolve({ jsnext: true, main: true, browser: true }),

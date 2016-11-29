@@ -52,7 +52,7 @@
     "rollup-plugin-node-builtins": "^2.0.0",
     "rollup-plugin-node-globals": "^1.1.0",
     "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-scss": "^0.1.0",
+    "rollup-plugin-sass": "^0.4.8",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-stream": "^1.14.0",
     "sinon": "^1.17.6",
