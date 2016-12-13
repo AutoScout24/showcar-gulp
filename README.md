@@ -142,6 +142,21 @@ karma: {
 }
 ```
 
+### Cross-browser testing on saucelabs
+
+Please note, running tests on saucelabs requires `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` env variables to be set correctly.
+
+```js
+karma: {
+    dependencies: ['jstest'],
+    files: ['dist/index.spec.js'],
+    sauceLabs: {
+        startConnect: true
+        // all available options are here: https://github.com/karma-runner/karma-sauce-launcher
+    }
+}
+```
+
 ## Usage example
 
 This is a working example, that shows all posible build tasks
