@@ -51,7 +51,8 @@ jspm_packages
 # Yarn Integrity file
 .yarn-integrity
 
-
+# https://github.com/gchaincl/dotenv.sh
+.env
 
 ### Git ###
 *.orig
