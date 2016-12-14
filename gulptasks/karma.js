@@ -53,7 +53,7 @@ module.exports = (gulp, options, done) => {
         karmaConfig.browsers = options.browsers ? options.browsers : Object.keys(karmaConfig.customLaunchers);
         karmaConfig.reporters = options.reports || ['dots', 'saucelabs'];
         karmaConfig.singleRun = true;
-        karmaConfig.concurrency = options.concurrency || options.browsers.length;
+        karmaConfig.concurrency = options.concurrency || karmaConfig.browsers.length;
     } else {
         karmaConfig.browsers = options.browsers || ['Electron'];
         karmaConfig.reporters = options.reports || ['mocha'];
