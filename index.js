@@ -10,7 +10,7 @@ const registerTask = (gulp, name, type, options) => {
 
         if (options.watch) {
             gulp.task(`${name}:watch`, [name], () => {
-                gulp.watch(options.watch, [name]);
+                return gulp.watch(options.watch, [name]);
             });
         }
 

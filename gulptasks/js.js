@@ -8,6 +8,8 @@ const rollup = require('rollup-stream');
 const buffer = require('vinyl-buffer');
 const source = require('vinyl-source-stream');
 
+const html = require('rollup-plugin-html');
+
 const buble = require('rollup-plugin-buble');
 const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
@@ -32,6 +34,7 @@ module.exports = (gulp, options) => {
                 output: false,
                 include: '**/*.scss'
             }),
+            html(),
             builtins(),
             nodeResolve({ jsnext: true, main: true, browser: true }),
             commonjs(),
@@ -48,6 +51,7 @@ module.exports = (gulp, options) => {
         .on('bundle', function(bundle) {
           cache = bundle;
         })
+        // .on('error', e => { console.log(e); })
         .pipe(source(options.entry))
         .pipe(buffer())
         .pipe(sourcemaps.init({ loadMaps: true }))

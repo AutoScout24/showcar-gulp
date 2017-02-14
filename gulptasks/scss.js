@@ -3,10 +3,10 @@ const path = require('path');
 const sourcemaps = require('gulp-sourcemaps');
 const sass = require('gulp-sass');
 const pleeease = require('gulp-pleeease');
-const util = require('gulp-util');
 const rename = require('gulp-rename');
 
 const globalConfig = require('../global-config');
+
 
 module.exports = (gulp, options) => {
 
@@ -19,7 +19,7 @@ module.exports = (gulp, options) => {
                     importer: (path, ...args) => {
                         const sanitizedPath = path.replace(/npm\:/, '');
                         return require('node-sass-import')(sanitizedPath, ...args);
-                    },
+                    }
                 }).on('error', sass.logError))
                 .pipe(pleeease({
                     autoprefixer: {
