@@ -13,7 +13,6 @@ const html = require('rollup-plugin-html');
 const buble = require('rollup-plugin-buble');
 const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
-const eslint = require('rollup-plugin-eslint');
 const uglify = require('rollup-plugin-uglify');
 const filesize = require('rollup-plugin-filesize');
 const builtins = require('rollup-plugin-node-builtins');
@@ -39,7 +38,9 @@ module.exports = (gulp, options) => {
             nodeResolve({ jsnext: true, main: true, browser: true }),
             commonjs(),
             buble()
-        ]
+        ],
+        format: 'iife',
+        moduleName: 'asdf'
     }, options.rollupConfig);
 
     if (!globalConfig.devmode) {
@@ -49,7 +50,7 @@ module.exports = (gulp, options) => {
 
     return rollup(config)
         .on('bundle', function(bundle) {
-          cache = bundle;
+            cache = bundle;
         })
         // .on('error', e => { console.log(e); })
         .pipe(source(options.entry))

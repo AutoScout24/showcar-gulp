@@ -19,15 +19,24 @@ const registerTask = (gulp, name, type, options) => {
     }
 };
 
-module.exports = (gulp) => {
-    return {
-        registerTasks(options) {
-            Object.keys(options).forEach(taskName => {
-                const taskOptions = options[taskName];
-                registerTask(gulp, taskName, taskOptions.type || taskName, taskOptions);
-            });
-        },
+// module.exports = (gulp) => {
+//     return {
+//         registerTasks(options) {
+//             Object.keys(options).forEach(taskName => {
+//                 const taskOptions = options[taskName];
+//                 registerTask(gulp, taskName, taskOptions.type || taskName, taskOptions);
+//             });
+//         },
 
-        get config() { return globalConfig; }
-    };
-};
+//         get config() { return globalConfig; }
+//     };
+// };
+
+module.exports = (gulp) => ({
+    rollup: options => () => require('./gulptasks/js')(gulp, options),
+    clean: options => () => require('./gulptasks/clean')(gulp, options),
+    scss: options => () => require('./gulptasks/scss')(gulp, options),
+    serve: options => () => require('./gulptasks/serve')(gulp, options),
+    karma: options => (done) => require('./gulptasks/karma')(gulp, options, done),
+    config: globalConfig
+});

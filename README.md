@@ -25,10 +25,6 @@ Create your own `gulpfile.js` with the following structure
 const gulp = require('gulp');
 const scgulp = require('showcar-gulp')(gulp);
 
-scgulp.registerTasks({
-    // here goes the tasks configuration
-});
-
 // gulp tasks alliases
 gulp.task('set-dev', () => {
     scgulp.config.devmode = true;
@@ -49,28 +45,20 @@ JS
 Builds and minimises and uglifies your js files
 
 ```js
-js: {
-    dependencies: ['eslint'],         // optional
+gulp.task('js', scgulp.rollup({
     entry: 'src/main.js',
-    out: 'dist/main.min.js',
-    watch: 'src/**/*.js',
-    rollupConfig: {
-        moduleName: 'yourModuleName',
-        format: 'iife'
-    }
-}
+    out: 'dist/main.min.js'
+}));
 ```
 
 SCSS
 Builds css from sass files and minimises it
 
 ```js
-scss: {
-    dependencies: ['stylelint'],      // optional
+gulp.task('scss', scgulp.scss({
     entry: 'src/main.scss',
-    out: 'dist/showcar.min.css',
-    watch: 'src/**/*.scss'
-}
+    out: 'dist/showcar.min.css'
+});
 ```
 
 ## Linter tasks
@@ -106,43 +94,48 @@ module.exports = Object.assign(require('showcar-gulp/.stylelintrc.js'), {
 });
 ```
 
-## Clean task
-Simply cleans dist folder
-
-```js
-serve: {
-    dir: 'dist'
-}
-```
 
 ## Serve task
 Runs a local server on localhost:3000 by default
 
 ```js
-clean: {
-    files: ['dist/**/*']
-}
+gulp.task('serve', scgulp.serve({
+    dir: 'dist'
+});
 ```
+
+
+## Clean task
+Removes files according to the `files` pattern
+
+```js
+gulp.task('clean', scgulp.clean({
+    files: ['dist/**/*']
+});
+```
+
 
 ## Karma task
 
 Runs karma tests
 
 ```js
-jstest: {
-    type: 'js',
+gulp.task('jstest' scgulp.js({
     entry: 'src/main.spec.js',
     out: 'dist/main.min.spec.js',
     watch: ['test-src/**/*.js', 'js-src/**/*.js'],
-},
+});
 
-karma: {
-    dependencies: ['jstest'],
+gulp.task('karma', ['jstest'], scgulp.karma({
     files: ['dist/index.spec.js']
-}
+});
+
+gulp.task('jstest:watch', () => {
+    gulp.watch(['test-src/**/*.js', 'js-src/**/*.js'], ['karma']);
+});
 ```
 
-### Cross-browser testing on saucelabs
+<!--### Cross-browser testing on saucelabs
 
 Please note, running tests on saucelabs requires `SAUCE_USERNAME` and `SAUCE_ACCESS_KEY` env variables to be set correctly.
 
@@ -155,58 +148,11 @@ karma: {
         // all available options are here: https://github.com/karma-runner/karma-sauce-launcher
     }
 }
-```
+```-->
 
 ## Usage example
 
-This is a working example, that shows all posible build tasks
-
-```js
-const gulp = require('gulp');
-const scgulp = require('showcar-gulp')(gulp);
-
-scgulp.registerTasks({
-    js: {
-        entry: 'src/main.entry.js',
-        out: 'dist/main.min.js',
-        watch: 'src/**/*.js',
-        rollupConfig: {
-            format: 'iife',
-            moduleName: 'yourModuleName'
-        }
-    },
-    scss: {
-        entry: 'src/main.scss',
-        out: 'dist/main.min.css',
-        watch: 'src/**/*.scss'
-    },
-    clean: {
-        path: ['dist/**/*']
-    },
-    serve: {
-        dir: 'dist',
-    },
-    jstest: {
-        type: 'js',
-        entry: 'src/main.spec.js',
-        out: 'dist/main.min.spec.js',
-        watch: ['test-src/**/*.js', 'js-src/**/*.js'],
-    },
-    karma: {
-        dependencies: ['jstest'],
-        files: ['dist/main.min.spec.js'],
-    }
-});
-
-gulp.task('set-dev', () => {
-    scgulp.config.devmode = true;
-});
-
-gulp.task('build', ['js', 'scss']);
-
-gulp.task('dev', ['set-dev', 'js:watch', 'jstest:watch', 'karma', 'scss:watch', 'serve']);
-
-```
+[Please see our gulpfile](./gulpfile.js)
 
 ## Compatibility with Grunt (?)
 
