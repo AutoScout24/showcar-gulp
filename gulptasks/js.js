@@ -23,7 +23,7 @@ const globalConfig = require('../global-config');
 module.exports = (gulp, options) => {
     const filename = path.basename(options.out);
     const filepath = path.dirname(options.out);
-    const useStrict = options.useStrict ? true: false;
+    const useStrict = options.useStrict ? false : true;
     
     const config = Object.assign({
         entry: options.entry,
