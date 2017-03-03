@@ -1,64 +1,48 @@
-var cache = null;
-
 const path = require('path');
-const sourcemaps = require('gulp-sourcemaps');
-const rename = require('gulp-rename');
-
-const rollup = require('rollup-stream');
-const buffer = require('vinyl-buffer');
-const source = require('vinyl-source-stream');
-
-const html = require('rollup-plugin-html');
-
-const buble = require('rollup-plugin-buble');
-const commonjs = require('rollup-plugin-commonjs');
-const nodeResolve = require('rollup-plugin-node-resolve');
-const uglify = require('rollup-plugin-uglify');
-const filesize = require('rollup-plugin-filesize');
-const builtins = require('rollup-plugin-node-builtins');
-const scss = require('rollup-plugin-scss');
-
+const webpackStream = require('webpack-stream');
+const webpack = require('webpack');
 const globalConfig = require('../global-config');
 
 module.exports = (gulp, options) => {
     const filename = path.basename(options.out);
     const filepath = path.dirname(options.out);
-    const useStrict = (typeof options.useStrict === 'undefined')  || options.useStrict ? true : false;
-    
-    const config = Object.assign({
-        entry: options.entry,
-        useStrict: useStrict,
-        cache,
-        rollup: require('rollup'),
-        plugins: [
-            scss({
-                output: false,
-                include: '**/*.scss'
-            }),
-            html(),
-            builtins(),
-            nodeResolve({ jsnext: true, main: true, browser: true }),
-            commonjs(),
-            buble()
-        ],
-        format: 'iife',
-        moduleName: 'asdf'
-    }, options.rollupConfig);
 
-    if (!globalConfig.devmode) {
-        config.plugins.push(uglify());
-        config.plugins.push(filesize());
+    let webpackOptions = {
+        devtool: "source-map",
+        output: {
+            filename: filename,
+        },
+        plugins: [],
+        module: {
+            rules: [{
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                query: {
+                    presets: [
+                        [require('babel-preset-es2015').buildPreset, {
+                            modules: process.env.RUN_MODE === 'es' ? false : 'commonjs',
+                        }],
+                    ],
+                }
+            }]
+        }
     }
 
-    return rollup(config)
-        .on('bundle', function(bundle) {
-            cache = bundle;
-        })
-        // .on('error', e => { console.log(e); })
-        .pipe(source(options.entry))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({ loadMaps: true }))
-        .pipe(rename(filename))
-        .pipe(sourcemaps.write('.'))
+    if (! globalConfig.devmode) {
+        webpackOptions.plugins.push(
+            new webpack.optimize.UglifyJsPlugin({
+                sourceMap: true,
+                compress: {
+                    warnings: false,
+                    drop_console: false,
+                }
+            })
+        )
+        // webpackOptions.plugins.push(filesize());
+    }
+
+    return gulp.src(options.entry)
+        .pipe(webpackStream(webpackOptions, webpack))
         .pipe(gulp.dest(filepath));
 };

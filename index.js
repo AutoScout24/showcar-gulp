@@ -33,7 +33,7 @@ const registerTask = (gulp, name, type, options) => {
 // };
 
 module.exports = (gulp) => ({
-    rollup: options => () => require('./gulptasks/js')(gulp, options),
+    js: options => () => require('./gulptasks/js')(gulp, options),
     clean: options => () => require('./gulptasks/clean')(gulp, options),
     scss: options => () => require('./gulptasks/scss')(gulp, options),
     serve: options => () => require('./gulptasks/serve')(gulp, options),
