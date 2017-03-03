@@ -12,23 +12,25 @@ module.exports = (gulp, options) => {
         output: {
             filename: filename,
         },
-        plugins: [],
         module: {
             rules: [{
                 test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: [
-                        [require('babel-preset-es2015').buildPreset, {
-                            modules: process.env.RUN_MODE === 'es' ? false : 'commonjs',
-                        }],
-                    ],
-                }
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['babel-preset-es2015'],
+                        /*presets: [
+                         [require('babel-preset-es2015').buildPreset, {
+                         modules: process.env.RUN_MODE === 'es' ? false : 'commonjs',
+                         }],
+                         ],*/
+                        cacheDirectory: '.tmp/js',
+                    },
+                }],
             }]
-        }
+        },
+        plugins: []
     }
-
     if (! globalConfig.devmode) {
         webpackOptions.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
