@@ -1,6 +1,6 @@
 # showcar-gulp
 
-Shared build steps for projects using the ShowCar UI Library
+Unified frontend build pipeline for projects using the ShowCar UI Library
 
 ## Install
 ```
@@ -42,7 +42,7 @@ gulp.task('default', ['build']);
 ## Build tasks
 
 JS
-Builds and minimises and uglifies your js files
+Build and minify your js files
 
 ```js
 gulp.task('js', scgulp.js({
@@ -52,7 +52,7 @@ gulp.task('js', scgulp.js({
 ```
 
 SCSS
-Builds css from sass files and minimises it
+Build and minify css from sass files
 
 ```js
 gulp.task('scss', scgulp.scss({
@@ -75,8 +75,8 @@ stylelint: {
 }
 ```
 
-For running linter tasks you will also need to create a configuration files.
-You could add custom rules to configuration files.
+For running linter tasks you will also need to create configuration files.
+You can add custom rules to the configuration files.
 
 `.eslintrc.js` for eslint task
 
