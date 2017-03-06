@@ -153,10 +153,3 @@ karma: {
 ## Usage example
 
 [Please see our gulpfile](./gulpfile.js)
-
-## Compatibility with Grunt (?)
-
-```
-npm install gulp-grunt -D
-...
-```
