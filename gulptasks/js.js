@@ -15,19 +15,18 @@ module.exports = (gulp, options) => {
         module: {
             rules: [{
                 test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['babel-preset-es2015'],
-                        /*presets: [
-                         [require('babel-preset-es2015').buildPreset, {
-                         modules: process.env.RUN_MODE === 'es' ? false : 'commonjs',
-                         }],
-                         ],*/
-                        cacheDirectory: '.tmp/js',
-                    },
-                }],
-            }]
+                loader: 'babel-loader',
+                options: {
+                    presets: [['es2015', { modules: false }]],
+                    /* presets: [
+                     [require('babel-preset-es2015').buildPreset, {
+                     modules: 'es'
+                     // modules: process.env.RUN_MODE === 'es' ? false : 'commonjs',
+                     }],
+                     ],*/
+                    cacheDirectory: '.tmp/js',
+                },
+            }],
         },
         plugins: []
     }

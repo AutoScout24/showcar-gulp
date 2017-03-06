@@ -54,3 +54,5 @@ gulp.task('set-dev', () => {
 gulp.task('build', ['js', 'scss']);
 
 gulp.task('dev', ['set-dev', 'build', 'js:watch', 'scss:watch', 'serve']);
+
+gulp.task('js-dev', ['set-dev', 'js', 'js:watch']);

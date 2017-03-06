@@ -2,22 +2,32 @@
 
 const globalConfig = require('./global-config');
 
-const registerTask = (gulp, name, type, options) => {
-    try {
+module.exports = (gulp) => ({
+    js: options => () => require('./gulptasks/js')(gulp, options),
+    clean: options => () => require('./gulptasks/clean')(gulp, options),
+    scss: options => () => require('./gulptasks/scss')(gulp, options),
+    serve: options => () => require('./gulptasks/serve')(gulp, options),
+    karma: options => (done) => require('./gulptasks/karma')(gulp, options, done),
+    config: globalConfig
+});
 
-        const task = done => require(`./gulptasks/${type}`)(gulp, options, done);
-        gulp.task(name, options.dependencies || [], task);
 
-        if (options.watch) {
-            gulp.task(`${name}:watch`, [name], () => {
-                return gulp.watch(options.watch, [name]);
-            });
-        }
+/*const registerTask = (gulp, name, type, options) => {
+ try {
 
-    } catch(ex) {
-        console.error(`ERROR: Could not register '${name}' task!`);
-    }
-};
+ const task = done => require(`./gulptasks/${type}`)(gulp, options, done);
+ gulp.task(name, options.dependencies || [], task);
+
+ if (options.watch) {
+ gulp.task(`${name}:watch`, [name], () => {
+ return gulp.watch(options.watch, [name]);
+ });
+ }
+
+ } catch(ex) {
+ console.error(`ERROR: Could not register '${name}' task!`);
+ }
+ };*/
 
 // module.exports = (gulp) => {
 //     return {
@@ -31,12 +41,3 @@ const registerTask = (gulp, name, type, options) => {
 //         get config() { return globalConfig; }
 //     };
 // };
-
-module.exports = (gulp) => ({
-    js: options => () => require('./gulptasks/js')(gulp, options),
-    clean: options => () => require('./gulptasks/clean')(gulp, options),
-    scss: options => () => require('./gulptasks/scss')(gulp, options),
-    serve: options => () => require('./gulptasks/serve')(gulp, options),
-    karma: options => (done) => require('./gulptasks/karma')(gulp, options, done),
-    config: globalConfig
-});
