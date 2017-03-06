@@ -31,7 +31,7 @@ module.exports = (gulp, options) => {
         },
         plugins: []
     }
-    if (! globalConfig.devmode) {
+    if (globalConfig.devmode) {
         webpackOptions.plugins.push(
             new webpack.optimize.UglifyJsPlugin({
                 sourceMap: true,
