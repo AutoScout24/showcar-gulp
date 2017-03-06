@@ -45,7 +45,7 @@ JS
 Builds and minimises and uglifies your js files
 
 ```js
-gulp.task('js', scgulp.rollup({
+gulp.task('js', scgulp.js({
     entry: 'src/main.js',
     out: 'dist/main.min.js'
 }));
