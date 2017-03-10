@@ -19,7 +19,7 @@ gulp.task('scss', scgulp.scss({
 }));
 
 gulp.task('scss:watch', () => {
-    gulp.watch(['test/scss-src/!**!/!*.scss'], ['js']);
+    gulp.watch(['test/scss-src/!**!/!*.scss'], ['scss']);
 });
 
 gulp.task('clean', scgulp.clean({
