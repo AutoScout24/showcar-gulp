@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const scgulp = require('.')(gulp);
 
-
 gulp.task('js', scgulp.js({
     entry: 'test/js-src/main.entry.js',
     out: 'test/dist/main.min.js',
@@ -38,7 +37,6 @@ gulp.task('serve', scgulp.serve({
     dir: 'test/dist'
 }));
 
-
 gulp.task('jstest', scgulp.js({
     entry: 'test/test-src/main.spec.js',
     out: 'test/dist/main.min.spec.js',
@@ -48,7 +46,6 @@ gulp.task('jstest', scgulp.js({
 gulp.task('jstest:watch', () => {
     gulp.watch(['test/test-src/!**!/!*.js', 'test/js-src/!**/!*.js'], ['karma']);
 });
-
 
 gulp.task('karma', ['jstest'], scgulp.karma({
     dependencies: ['jstest'],
