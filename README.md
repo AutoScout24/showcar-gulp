@@ -63,36 +63,26 @@ gulp.task('scss', scgulp.scss({
 
 ## Linter tasks
 
-Optional tasks for linting code style
+Tasks for linting JS and CSS code style
 
+JS
 ```js
-eslint: {
+gulp.task('eslint', scgulp.eslint({
     files: 'src/**/*.js'
-},
-
-stylelint: {
+});
+```
+CSS
+```js
+gulp.task('stylelint', scgulp.stylelint({
     files: 'src/**/*.scss'
-}
+});
 ```
 
-For running linter tasks you will also need to create configuration files.
-You can add custom rules to the configuration files.
+For running linter tasks you will also need to create configuration files in your project.
 
 `.eslintrc.js` for eslint task
 
-```js
-module.exports = Object.assign(require('showcar-gulp/.eslintrc.js'), {
-    // custom rules here
-});
-```
-
-`stylelint.config.js` for stylelint task
-
-```js
-module.exports = Object.assign(require('showcar-gulp/.stylelintrc.js'), {
-    // custom rules here
-});
-```
+`.stylelintrc.js` for stylelint task
 
 
 ## Serve task
