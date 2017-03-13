@@ -4,4 +4,4 @@ console.log(sdf);
 console.log('main234');
 // console.log(style);
 
-export default { asdf: 'qwer' }
+export default { asdf: 'qwer' };

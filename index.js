@@ -8,6 +8,8 @@ module.exports = (gulp) => ({
     scss: options => () => require('./gulptasks/scss')(gulp, options),
     serve: options => () => require('./gulptasks/serve')(gulp, options),
     karma: options => (done) => require('./gulptasks/karma')(gulp, options, done),
+    eslint: options => (done) => require('./gulptasks/eslint')(gulp, options, done),
+    stylelint: options => (done) => require('./gulptasks/stylelint')(gulp, options, done),
     config: globalConfig
 });
 

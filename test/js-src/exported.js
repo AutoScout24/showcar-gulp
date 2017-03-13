@@ -1,6 +1,6 @@
 export default () => {
     return 'sdfdsfds';
-}
+};
 
 
 var v23423 = 'sdfsdf11111';

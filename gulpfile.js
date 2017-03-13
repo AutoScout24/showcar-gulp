@@ -12,6 +12,10 @@ gulp.task('js:watch', () => {
     gulp.watch(['test/js-src/**/*.js'], ['js']);
 });
 
+gulp.task('eslint', scgulp.eslint({
+    files: 'test/js-src/**/*.js'
+}));
+
 gulp.task('scss', scgulp.scss({
     entry: 'test/scss-src/main.scss',
     out: 'test/dist/main.min.css',
@@ -21,6 +25,10 @@ gulp.task('scss', scgulp.scss({
 gulp.task('scss:watch', () => {
     gulp.watch(['test/scss-src/!**!/!*.scss'], ['scss']);
 });
+
+gulp.task('stylelint', scgulp.stylelint({
+    files: 'test/scss-src/**/*.scss'
+}));
 
 gulp.task('clean', scgulp.clean({
     files: ['test/dist/!**!/!*']
@@ -53,6 +61,8 @@ gulp.task('set-dev', () => {
 
 gulp.task('build', ['js', 'scss']);
 
-gulp.task('dev', ['set-dev', 'build', 'js:watch', 'scss:watch', 'serve']);
+gulp.task('lint', ['eslint', 'stylelint']);
+
+gulp.task('dev', ['set-dev', 'build', 'lint', 'js:watch', 'scss:watch', 'serve']);
 
 gulp.task('js-dev', ['set-dev', 'js', 'js:watch']);

@@ -1,3 +1,3 @@
-module.exports = () =>{
-    return 'sdfsdfsdfsdfsdfdssdffsdsfdfsd'
-}
+module.exports = () => {
+    return 'sdfsdfsdfsdfsdfdssdffsdsfdfsd';
+};
