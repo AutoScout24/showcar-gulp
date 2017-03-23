@@ -52,6 +52,12 @@ gulp.task('karma', ['jstest'], scgulp.karma({
     files: ['test/dist/main.min.spec.js']
 }));
 
+gulp.task('imagemin', scgulp.imagemin({
+    entry: 'test/images/*.*',
+    out: 'test/images/compressed',
+    quality: 80
+}));
+
 gulp.task('set-dev', () => {
     scgulp.config.devmode = true;
 });
