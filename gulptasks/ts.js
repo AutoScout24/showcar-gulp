@@ -17,15 +17,9 @@ module.exports = (gulp, options) => {
       extensions: ['*', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
     },
     module: {
-      rules: [{
-        test: /\.js$/,
-        loader: 'babel-loader',
-        options: {
-          presets: [['es2015', {modules: false}]],
-          cacheDirectory: '.tmp/js',
-        },
-      },
+      rules: [
         {
+          test: /\.ts$/,
           loader: 'ts-loader?compiler=typescript&+useCache&+useBabel&module=common'
         }]
     },
