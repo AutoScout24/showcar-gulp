@@ -27,10 +27,7 @@ module.exports = (gulp, options) => {
       },
         {
           loader: 'ts-loader?compiler=typescript&+useCache&+useBabel&module=common'
-        }],
-      // loaders: [
-      //   {test: /\.ts$/, loader: 'ts-loader?compiler=typescript&+useCache&+useBabel&module=common'}
-      // ]
+        }]
     },
     plugins: []
   };
@@ -44,7 +41,6 @@ module.exports = (gulp, options) => {
         }
       })
     );
-    // webpackOptions.plugins.push(filesize());
   }
 
   return gulp.src(options.entry)
