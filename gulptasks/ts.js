@@ -26,6 +26,7 @@ module.exports = (gulp, options) => {
         },
       },
         {
+          test: /\.ts$/,
           loader: 'ts-loader?compiler=typescript&+useCache&+useBabel&module=common'
         }]
     },
