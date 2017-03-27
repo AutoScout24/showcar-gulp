@@ -81,6 +81,14 @@ JS
 gulp.task('eslint', scgulp.eslint({
     files: 'src/**/*.js'
 });
+
+```
+TypeScript
+```js
+gulp.task('tslint', scgulp.tslint({
+    files: 'src/**/*.ts'
+}));
+
 ```
 CSS
 ```js
