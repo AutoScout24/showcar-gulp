@@ -61,6 +61,17 @@ gulp.task('scss', scgulp.scss({
 });
 ```
 
+
+TypeScript
+Build and minify your ts files
+
+```js
+gulp.task('ts', scgulp.ts({
+    entry: 'src/main.ts',
+    out: 'dist/tsmain.min.js'
+}));
+```
+
 ## Linter tasks
 
 Tasks for linting JS and CSS code style

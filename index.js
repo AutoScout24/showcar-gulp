@@ -4,6 +4,7 @@ const globalConfig = require('./global-config');
 
 module.exports = (gulp) => ({
     js: options => () => require('./gulptasks/js')(gulp, options),
+    ts: options => () => require('./gulptasks/ts')(gulp, options),
     clean: options => () => require('./gulptasks/clean')(gulp, options),
     scss: options => () => require('./gulptasks/scss')(gulp, options),
     serve: options => () => require('./gulptasks/serve')(gulp, options),
@@ -11,6 +12,7 @@ module.exports = (gulp) => ({
     imagemin: options => (done) => require('./gulptasks/imagemin')(gulp, options, done),
     eslint: options => (done) => require('./gulptasks/eslint')(gulp, options, done),
     stylelint: options => (done) => require('./gulptasks/stylelint')(gulp, options, done),
+    tslint: options => (done) => require('./gulptasks/tslint')(gulp, options, done),
     config: globalConfig
 });
 

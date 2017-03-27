@@ -12,7 +12,21 @@ gulp.task('js:watch', () => {
 });
 
 gulp.task('eslint', scgulp.eslint({
-    files: 'test/js-src/**/*.js'
+  files: 'test/js-src/**/*.js'
+}));
+
+
+gulp.task('ts', scgulp.ts({
+    entry: 'test/ts-src/main.entry.ts',
+    out: 'test/dist/tsmain.min.js'
+}));
+
+gulp.task('ts:watch', () => {
+    gulp.watch(['test/ts-src/**/*.ts'], ['ts']);
+});
+
+gulp.task('tslint', scgulp.tslint({
+    files: 'test/ts-src/**/*.ts'
 }));
 
 gulp.task('scss', scgulp.scss({
@@ -47,9 +61,19 @@ gulp.task('jstest:watch', () => {
     gulp.watch(['test/test-src/!**!/!*.js', 'test/js-src/!**/!*.js'], ['karma']);
 });
 
-gulp.task('karma', ['jstest'], scgulp.karma({
-    dependencies: ['jstest'],
-    files: ['test/dist/main.min.spec.js']
+
+gulp.task('tstest', scgulp.ts({
+  entry: 'test/test-src/tsmain.spec.ts',
+  out: 'test/dist/tsmain.min.spec.js'
+}));
+
+gulp.task('tstest:watch', () => {
+  gulp.watch(['test/test-src/!**!/!*.ts', 'test/ts-src/!**!/!*.ts'], ['karma']);
+});
+
+gulp.task('karma', ['jstest', 'tstest'], scgulp.karma({
+    dependencies: ['jstest', 'tstest'],
+    files: ['test/dist/main.min.spec.js', 'test/dist/tsmain.min.spec.js']
 }));
 
 gulp.task('imagemin', scgulp.imagemin({
@@ -62,10 +86,10 @@ gulp.task('set-dev', () => {
     scgulp.config.devmode = true;
 });
 
-gulp.task('build', ['js', 'scss']);
+gulp.task('build', ['js', 'ts', 'scss']);
 
-gulp.task('lint', ['eslint', 'stylelint']);
+gulp.task('lint', ['eslint', 'stylelint', 'tslint']);
 
-gulp.task('dev', ['set-dev', 'build', 'lint', 'js:watch', 'scss:watch', 'serve']);
+gulp.task('dev', ['set-dev', 'build', 'lint', 'js:watch', 'ts:watch', 'scss:watch', 'serve']);
 
-gulp.task('js-dev', ['set-dev', 'js', 'js:watch']);
+gulp.task('js-dev', ['set-dev', 'js', 'js:watch', 'ts', 'ts:watch']);
