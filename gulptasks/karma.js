@@ -12,14 +12,13 @@ module.exports = (gulp, options, done) => {
 
     const proxies = options.proxies || '';
     const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
+    const preprocessors = options.preprocessors || '';
     let karmaConfig = {
         basePath: process.cwd(),
         files,
         frameworks,
         plugins,
-        preprocessors: {
-            '*.js': ['browserify'] //providing browserify to use require in test files
-        },
+        preprocessors,
         port: 9876, //fix port, don't change
         urlRoot,
         proxies,
