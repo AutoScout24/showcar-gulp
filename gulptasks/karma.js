@@ -7,14 +7,22 @@ module.exports = (gulp, options, done) => {
     const files = options.files;
     files.push({ pattern: '**/*.js.map', included: false, watched: false });
 
-    const frameworks = ['mocha', 'chai', 'sinon'].concat(options.frameworks || []);
-    const plugins = ['karma-mocha-reporter', 'karma-mocha', 'karma-sinon', 'karma-chai', 'karma-electron', 'karma-sauce-launcher'].concat(options.plugins || []);
+    const frameworks = ['mocha', 'chai', 'sinon', 'browserify'].concat(options.frameworks || []);
+    const plugins = ['karma-mocha-reporter', 'karma-mocha', 'karma-sinon', 'karma-chai', 'karma-electron', 'karma-sauce-launcher', 'karma-browserify'].concat(options.plugins || []);
 
+    const proxies = options.proxies || '';
+    const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
     let karmaConfig = {
         basePath: process.cwd(),
         files,
         frameworks,
         plugins,
+        preprocessors: {
+            '*.js': ['browserify'] //providing browserify to use require in test files
+        },
+        port: 9876, //fix port, don't change
+        urlRoot,
+        proxies,
         singleRun: true,
     };
 
@@ -58,7 +66,7 @@ module.exports = (gulp, options, done) => {
     // } else {
     karmaConfig.browsers = options.browsers || ['Electron'];
     karmaConfig.reporters = options.reports || ['mocha'];
-    karmaConfig.singleRun = !globalConfig.devmode;
+    karmaConfig.singleRun = ! globalConfig.devmode;
     karmaConfig.client = {
         mocha: {
             reporter: 'html'
@@ -66,6 +74,6 @@ module.exports = (gulp, options, done) => {
     };
     // }
 
-    const server = new KarmaServer(karmaConfig, done);
+    const server = new KarmaServer(karmaConfig, () => done());
     server.start();
 };
