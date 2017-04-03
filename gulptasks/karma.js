@@ -23,7 +23,7 @@ module.exports = (gulp, options, done) => {
         urlRoot,
         browserify: {
             debug: true, // include inline source maps
-            plugin: [['sourcemapify', {'root':'../../../../../..'}]] // crazy thing to remove v8 temp folder path TODO test on windows
+            plugin: [['sourcemapify', {'root':'/'}]]
         },
         proxies,
         singleRun: true,
@@ -77,6 +77,9 @@ module.exports = (gulp, options, done) => {
     };
     // }
 
-    const server = new KarmaServer(karmaConfig, () => done());
+    const server = new KarmaServer(karmaConfig, () => {
+        done();
+        process.exit();
+    });
     server.start();
 };
