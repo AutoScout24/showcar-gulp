@@ -7,13 +7,17 @@ module.exports = (gulp, options, done) => {
     const files = options.files;
     files.push({ pattern: '**/*.js.map', included: false, watched: false });
 
-    const frameworks = ['mocha', 'chai', 'sinon','source-map-support', 'browserify'].concat(options.frameworks || []);
-    const plugins = ['karma-mocha-reporter', 'karma-mocha', 'karma-sinon', 'karma-chai', 'karma-electron', 'karma-sauce-launcher', 'karma-browserify','karma-source-map-support'].concat(options.plugins || []);
+    const frameworks = ['mocha', 'chai', 'sinon', 'source-map-support', 'browserify'].concat(options.frameworks || []);
+    const plugins = ['karma-mocha-reporter', 'karma-mocha', 'karma-sinon', 'karma-chai', 'karma-electron', 'karma-sauce-launcher', 'karma-browserify', 'karma-source-map-support'].concat(options.plugins || []);
 
     const proxies = options.proxies || '';
     const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
     const preprocessors = options.preprocessors || '';
     let karmaConfig = {
+        browserConsoleLogOptions: {
+            level: 'log',
+            terminal: true
+        },
         basePath: process.cwd(),
         files,
         frameworks,
@@ -23,7 +27,8 @@ module.exports = (gulp, options, done) => {
         urlRoot,
         browserify: {
             debug: true, // include inline source maps
-            plugin: [['sourcemapify', {'root':'/'}]]
+            transform: ['require-globify'],
+            plugin: [['sourcemapify', { 'root': '/' }]]
         },
         proxies,
         singleRun: true,
@@ -71,8 +76,10 @@ module.exports = (gulp, options, done) => {
     karmaConfig.reporters = options.reports || ['mocha'];
     karmaConfig.singleRun = ! globalConfig.devmode;
     karmaConfig.client = {
+        captureConsole: true,
         mocha: {
-            reporter: 'html'
+            reporter: 'html',
+            globals: ['frame', 'assert'],
         }
     };
     // }
