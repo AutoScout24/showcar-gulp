@@ -73,7 +73,7 @@ module.exports = (gulp, options, done) => {
     }
 
     if (options.browserStack) {
-        karmaConfig.browserStack = options.browserStack || {
+        karmaConfig.browserStack = options.credentials || {
                 username: process.env.BROWSERSTACK_USERNAME,
                 accessKey: process.env.BROWSERSTACK_ACCESS_KEY
             };
