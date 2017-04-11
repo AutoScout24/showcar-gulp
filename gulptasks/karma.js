@@ -32,6 +32,13 @@ module.exports = (gulp, options, done) => {
             transform: ['require-globify'],
             plugin: [['sourcemapify', { 'root': '/' }]]
         },
+        browserNoActivityTimeout: 10 * 60000,
+        // use an extended timeout for capturing Sauce Labs
+        // browsers in case the service is busy
+        captureTimeout: 10 * 60000,
+        browserDisconnectTimeout: 5 * 60000,
+        processKillTimeout: 5 * 60000,
+        browserDisconnectTolerance: 1,
         singleRun: true
     };
 
@@ -94,6 +101,10 @@ module.exports = (gulp, options, done) => {
         mocha: {
             reporter: 'html',
             timeout: 10000
+        },
+        mochaReporter: {
+            output: 'full',
+            maxLogLines: -1
         }
     };
 
