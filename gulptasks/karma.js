@@ -32,6 +32,7 @@ module.exports = (gulp, options, done) => {
             transform: ['require-globify'],
             plugin: [['sourcemapify', { 'root': '/' }]]
         },
+        singleRun: true
     };
 
     const browserStackCustomLaunchers = {
