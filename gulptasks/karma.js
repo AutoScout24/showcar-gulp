@@ -8,7 +8,7 @@ module.exports = (gulp, options, done) => {
     files.push({ pattern: '**/*.js.map', included: false, watched: false });
 
     const frameworks = ['mocha', 'chai', 'sinon', 'source-map-support', 'browserify'].concat(options.frameworks || []);
-    const plugins = ['karma-mocha-reporter', 'karma-mocha', 'karma-sinon', 'karma-chai', 'karma-electron', 'karma-sauce-launcher', 'karma-browserstack-launcher', 'karma-firefox-launcher', 'karma-safari-launcher', 'karma-chrome-launcher', 'karma-browserify', 'karma-source-map-support'].concat(options.plugins || []);
+    const plugins = ['karma-mocha-reporter', 'karma-mocha', 'karma-sinon', 'karma-chai', 'karma-electron', 'karma-browserstack-launcher', 'karma-firefox-launcher', 'karma-safari-launcher', 'karma-chrome-launcher', 'karma-browserify', 'karma-source-map-support'].concat(options.plugins || []);
 
     const proxies = options.proxies || '';
     const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
