@@ -8,7 +8,19 @@ module.exports = (gulp, options, done) => {
     files.push({ pattern: '**/*.js.map', included: false, watched: false });
 
     const frameworks = ['mocha', 'chai', 'sinon', 'source-map-support', 'browserify'].concat(options.frameworks || []);
-    const plugins = ['karma-mocha-reporter', 'karma-mocha', 'karma-sinon', 'karma-chai', 'karma-electron', 'karma-browserstack-launcher', 'karma-firefox-launcher', 'karma-safari-launcher', 'karma-chrome-launcher', 'karma-browserify', 'karma-source-map-support'].concat(options.plugins || []);
+    const plugins = ['karma-mocha-reporter',
+        'karma-mocha',
+        'karma-sinon',
+        'karma-chai',
+        'karma-browserify',
+        'karma-electron',
+        'karma-firefox-launcher',
+        'karma-safari-launcher',
+        'karma-chrome-launcher',
+        'karma-ie-launcher',
+        'karma-edge-launcher',
+        'karma-browserstack-launcher',
+        'karma-source-map-support'].concat(options.plugins || []);
 
     const proxies = options.proxies || '';
     const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
@@ -32,14 +44,12 @@ module.exports = (gulp, options, done) => {
             transform: ['require-globify'],
             plugin: [['sourcemapify', { 'root': '/' }]]
         },
-        browserNoActivityTimeout: 10 * 60000,
-        // use an extended timeout for capturing Sauce Labs
-        // browsers in case the service is busy
-        captureTimeout: 10 * 60000,
-        browserDisconnectTimeout: 5 * 60000,
+        // use an extended timeout for browsers in case the service is busy
+        browserNoActivityTimeout: 5 * 60000,
+        captureTimeout: 5 * 60000,
+        browserDisconnectTimeout: 2 * 60000,
         processKillTimeout: 5 * 60000,
         browserDisconnectTolerance: 1,
-        singleRun: true
     };
 
     const browserStackCustomLaunchers = {
@@ -77,24 +87,50 @@ module.exports = (gulp, options, done) => {
             browser_version: '11.0',
             os: 'Windows',
             os_version: '10'
-        }
+        },
+        bs_iphone6s: {
+            base: 'BrowserStack',
+            device: 'iPhone 6S',
+            os: 'ios',
+            os_version: '9.3'
+        },
+        bs_iphone7: {
+            base: 'BrowserStack',
+            device: 'iPhone 7',
+            os: 'ios',
+            os_version: '10.0'
+        },
+        bs_samsungS5_android: {
+            base: 'BrowserStack',
+            device: 'Samsung Galaxy S5',
+            os: 'android',
+            browser: 'Android Browser',
+            browser_version: '4',
+            os_version: '4.4'
+        },
+        bs_samsungS5_chrome: {
+            base: 'BrowserStack',
+            device: 'Samsung Galaxy S5',
+            os: 'android',
+            browser: 'Chrome Mobile',
+            browser_version: '33',
+            os_version: '4.4'
+        },
     }
-
     if (options.browserStack) {
         karmaConfig.browserStack = options.credentials || {
                 username: process.env.BROWSERSTACK_USERNAME,
                 accessKey: process.env.BROWSERSTACK_ACCESS_KEY
             };
         karmaConfig.customLaunchers = options.customLaunchers ? options.customLaunchers : browserStackCustomLaunchers;
-        karmaConfig.browsers = options.browsers ? options.browsers : ['bs_edge_win', 'bs_safari_mac', 'bs_firefox_win', 'bs_ie11_win', 'bs_chrome_win'];
+        karmaConfig.browsers = options.browsers ? options.browsers : ['bs_safari_mac', 'bs_chrome_win', 'bs_firefox_win', 'bs_edge_win', 'bs_ie11_win', 'bs_iphone6s', 'bs_iphone7', 'bs_samsungS5_android', 'bs_samsungS5_chrome'];
         karmaConfig.reporters = options.reports || ['mocha'];
         karmaConfig.concurrency = options.concurrency || karmaConfig.browsers.length;
-        karmaConfig.concurrency = 1; //keep temporary
+        karmaConfig.singleRun = true;
     } else {
         karmaConfig.browsers = options.browsers || ['Electron'];
         karmaConfig.reporters = options.reports || ['mocha'];
         karmaConfig.singleRun = ! globalConfig.devmode || options.singleRun;
-        karmaConfig.singleRun = true; //keep temporary
     }
     karmaConfig.client = {
         captureConsole: true,
@@ -104,13 +140,13 @@ module.exports = (gulp, options, done) => {
         },
         mochaReporter: {
             output: 'full',
-            maxLogLines: -1
+            maxLogLines: - 1
         }
     };
 
-    const server = new KarmaServer(karmaConfig, () => {
+    const server = new KarmaServer(karmaConfig, (exitCode) => {
         done();
-        process.exit();
+        process.exit(exitCode);
     });
     server.start();
 };
