@@ -1,3 +1,34 @@
+var helper = {
+    click: function (el) { //for consistency
+        el.click();
+    },
+    hoverOn: function (el) {
+        var ev;
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+            ev = document.createEvent('TouchEvent');
+            ev.initUIEvent('touchstart', true, true);
+        } else {
+            ev = document.createEvent('MouseEvent');
+            ev.initMouseEvent('mouseover', true, true);
+        }
+        el.dispatchEvent(ev);
+    },
+    hoverOff: function (el) {
+        var ev;
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+            ev = document.createEvent('TouchEvent');
+            ev.initUIEvent('touched', true, true);
+        } else {
+            ev = document.createEvent('MouseEvent');
+            ev.initMouseEvent('mouseleave', true, true);
+        }
+        el.dispatchEvent(ev);
+    },
+    hasClass: function (target, cssClass) {
+        return target.classList.contains(cssClass);
+    }
+};
+
 module.exports = function (config) {
     window.__karma__.loaded = function () {}; //  prevent of execution mocha  https://zerokspot.com/weblog/2013/07/12/delay-test-execution-in-karma/
     var quixote = require('quixote');
@@ -17,7 +48,7 @@ module.exports = function (config) {
         });
         describe('Device width: ' + browserWidth, function () {
             config.files.forEach(function (file) {
-                file.module(frame, assert, browserWidth);
+                file.module(frame, assert, browserWidth, helper);
             });
         });
         after(function () {
