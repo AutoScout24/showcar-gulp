@@ -122,6 +122,8 @@ module.exports = (gulp, options, done) => {
                 username: process.env.BROWSERSTACK_USERNAME,
                 accessKey: process.env.BROWSERSTACK_ACCESS_KEY
             };
+        karmaConfig.browserStack.build = options.build || 'Showcar-ui ' + new Date().toLocaleString('de-DE');
+        karmaConfig.browserStack.project = options.project ||  'Showcar-ui';
         karmaConfig.customLaunchers = options.customLaunchers ? options.customLaunchers : browserStackCustomLaunchers;
         karmaConfig.browsers = options.browsers ? options.browsers : ['bs_safari_mac', 'bs_chrome_win', 'bs_firefox_win', 'bs_edge_win', 'bs_ie11_win', 'bs_iphone6s', 'bs_iphone7', 'bs_samsungS5_android', 'bs_samsungS5_chrome'];
         karmaConfig.reporters = options.reports || ['mocha'];
