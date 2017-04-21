@@ -9,7 +9,7 @@ var helper = {
             ev.initUIEvent('touchstart', true, true);
         } else {
             ev = document.createEvent('MouseEvent');
-            ev.initMouseEvent('mouseover', true, true);
+            ev.initMouseEvent('mouseover', true, true, window, null, 0, 0, 0, 0, false, false, false, false, 0, null);
         }
         el.dispatchEvent(ev);
     },
@@ -20,7 +20,7 @@ var helper = {
             ev.initUIEvent('touched', true, true);
         } else {
             ev = document.createEvent('MouseEvent');
-            ev.initMouseEvent('mouseleave', true, true);
+            ev.initMouseEvent('mouseleave', true, true, window, null, 0, 0, 0, 0, false, false, false, false, 0, null);
         }
         el.dispatchEvent(ev);
     },

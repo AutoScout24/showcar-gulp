@@ -46,9 +46,9 @@ module.exports = (gulp, options, done) => {
         },
         // use an extended timeout for browsers in case the service is busy
         browserNoActivityTimeout: 3 * 60000,
-        captureTimeout: 4 * 60000,
-        browserDisconnectTimeout: 2 * 60000,
-        processKillTimeout: 6 * 60000,
+        captureTimeout: 3 * 60000,
+        browserDisconnectTimeout: 3 * 60000,
+        processKillTimeout: 3 * 60000,
         browserDisconnectTolerance: 1,
     };
 
@@ -118,12 +118,9 @@ module.exports = (gulp, options, done) => {
         },
     }
     if (options.browserStack) {
-        karmaConfig.browserStack = options.credentials || {
-                username: process.env.BROWSERSTACK_USERNAME,
-                accessKey: process.env.BROWSERSTACK_ACCESS_KEY
-            };
-        karmaConfig.browserStack.build = options.build || 'Showcar-ui ' + new Date().toLocaleString('de-DE');
-        karmaConfig.browserStack.project = options.project ||  'Showcar-ui';
+        karmaConfig.browserStack = typeof(options.browserStack) === 'object' ? options.browserStack : {};
+        karmaConfig.browserStack.username = process.env.BROWSERSTACK_USERNAME;
+        karmaConfig.browserStack.accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
         karmaConfig.customLaunchers = options.customLaunchers ? options.customLaunchers : browserStackCustomLaunchers;
         karmaConfig.browsers = options.browsers ? options.browsers : ['bs_safari_mac', 'bs_chrome_win', 'bs_firefox_win', 'bs_edge_win', 'bs_ie11_win', 'bs_iphone6s', 'bs_iphone7', 'bs_samsungS5_android', 'bs_samsungS5_chrome'];
         karmaConfig.reporters = options.reports || ['mocha'];
@@ -131,7 +128,7 @@ module.exports = (gulp, options, done) => {
         karmaConfig.singleRun = true;
     } else {
         karmaConfig.browsers = options.browsers || ['Electron'];
-        karmaConfig.reporters = options.reports || ['mocha'];
+        karmaConfig.reporters = options.reports || ['mocha', 'BrowserStack'];
         karmaConfig.singleRun = ! globalConfig.devmode || options.singleRun;
     }
     karmaConfig.client = {
