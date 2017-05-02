@@ -135,7 +135,7 @@ module.exports = (gulp, options, done) => {
         captureConsole: true,
         mocha: {
             reporter: 'html',
-            timeout: 10000
+            timeout: 20000
         },
         mochaReporter: {
             output: 'full',
