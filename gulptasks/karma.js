@@ -45,10 +45,10 @@ module.exports = (gulp, options, done) => {
             plugin: [['sourcemapify', { 'root': '/' }]]
         },
         // use an extended timeout for browsers in case the service is busy
-        browserNoActivityTimeout: 3 * 60000,
-        captureTimeout: 3 * 60000,
-        browserDisconnectTimeout: 3 * 60000,
-        processKillTimeout: 3 * 60000,
+        browserNoActivityTimeout: 4 * 60000,
+        captureTimeout: 4 * 60000,
+        browserDisconnectTimeout: 4 * 60000,
+        processKillTimeout: 4 * 60000,
         browserDisconnectTolerance: 1,
     };
 
