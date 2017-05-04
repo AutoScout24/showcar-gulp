@@ -2,6 +2,19 @@ var helper = {
     click: function (el) { //for consistency
         el.click();
     },
+    reload: function (frame, done) {
+        function reloadFrame() {
+            frame.reload(function () {
+                clearTimeout(reloadFrameOneMoreTimeForSlowDevices);
+                done();
+            });
+        }
+
+        reloadFrame();
+        var reloadFrameOneMoreTimeForSlowDevices = setTimeout(function () {
+            reloadFrame();
+        }, 10000)
+    },
     hoverOn: function (el) {
         var ev;
         if ('ontouchstart' in window || navigator.maxTouchPoints) {
