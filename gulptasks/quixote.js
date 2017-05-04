@@ -1,7 +1,4 @@
 var helper = {
-    click: function (el) { //for consistency
-        el.click();
-    },
     reload: function (frame, done) {
         function reloadFrame() {
             frame.reload(function () {
@@ -14,6 +11,20 @@ var helper = {
         var reloadFrameOneMoreTimeForSlowDevices = setTimeout(function () {
             reloadFrame();
         }, 10000)
+    },
+    click: function (el) { //for consistency
+        el.click();
+    },
+    mouseTouchDown: function (el) {
+        var ev;
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+            ev = document.createEvent('TouchEvent');
+            ev.initUIEvent('touchstart', true, true);
+        } else {
+            ev = document.createEvent('MouseEvent');
+            ev.initMouseEvent('mousedown', true, true, window, null, 0, 0, 0, 0, false, false, false, false, 0, null);
+        }
+        el.dispatchEvent(ev);
     },
     hoverOn: function (el) {
         var ev;
