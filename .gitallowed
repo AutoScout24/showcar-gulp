@@ -1,2 +1,3 @@
 yarn.lock:[0-9]*:.*
 package.json:[0-9]*:.*
+package-lock.json:[0-9]*:.*
