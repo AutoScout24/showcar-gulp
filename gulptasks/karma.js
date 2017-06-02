@@ -6,13 +6,12 @@ module.exports = (gulp, options, done) => {
 
     const files = options.files;
     files.push({ pattern: '**/*.js.map', included: false, watched: false });
-
-    const frameworks = ['mocha', 'chai', 'sinon', 'source-map-support', 'browserify'].concat(options.frameworks || []);
+    const frameworks = ['mocha', 'chai', 'sinon', 'source-map-support'].concat(options.frameworks || []);
     const plugins = ['karma-mocha-reporter',
         'karma-mocha',
         'karma-sinon',
         'karma-chai',
-        'karma-browserify',
+        'karma-webpack',
         'karma-electron',
         'karma-firefox-launcher',
         'karma-safari-launcher',
@@ -24,8 +23,12 @@ module.exports = (gulp, options, done) => {
 
     const proxies = options.proxies || '';
     const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
-    const preprocessors = options.preprocessors || '';
+    const preprocessors = options.preprocessors;
     let karmaConfig = {
+        // webpack configuration
+        webpackMiddleware: {
+            stats: "errors-only"
+        },
         // logLevel: 'LOG_DEBUG', //keep for debugging
         browserConsoleLogOptions: {
             level: 'log',
@@ -39,11 +42,6 @@ module.exports = (gulp, options, done) => {
         port: 9876, //fix port, don't change
         urlRoot,
         proxies,
-        browserify: {
-            debug: true, // include inline source maps
-            transform: ['require-globify'],
-            plugin: [['sourcemapify', { 'root': '/' }]]
-        },
         // use an extended timeout for browsers in case the service is busy
         browserNoActivityTimeout: 4 * 60000,
         captureTimeout: 4 * 60000,
@@ -117,6 +115,7 @@ module.exports = (gulp, options, done) => {
             os_version: '4.4'
         },
     }
+
     if (options.browserStack) {
         karmaConfig.browserStack = typeof(options.browserStack) === 'object' ? options.browserStack : {};
         karmaConfig.browserStack.username = process.env.BROWSERSTACK_USERNAME;
