@@ -26,6 +26,7 @@ module.exports = (gulp, options, done) => {
     const preprocessors = options.preprocessors;
     let karmaConfig = {
         // webpack configuration
+        webpack: require("../.webpack.config.js"),
         webpackMiddleware: {
             stats: "errors-only"
         },
