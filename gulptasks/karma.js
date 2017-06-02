@@ -6,7 +6,7 @@ module.exports = (gulp, options, done) => {
 
     const files = options.files;
     files.push({ pattern: '**/*.js.map', included: false, watched: false });
-    const frameworks = ['mocha', 'chai', 'sinon', 'source-map-support'].concat(options.frameworks || []);
+    const frameworks = ['mocha', 'chai', 'sinon'].concat(options.frameworks || []);
     const plugins = ['karma-mocha-reporter',
         'karma-mocha',
         'karma-sinon',
@@ -19,7 +19,7 @@ module.exports = (gulp, options, done) => {
         'karma-ie-launcher',
         'karma-edge-launcher',
         'karma-browserstack-launcher',
-        'karma-source-map-support'].concat(options.plugins || []);
+        'karma-sourcemap-loader'].concat(options.plugins || []);
 
     const proxies = options.proxies || '';
     const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
