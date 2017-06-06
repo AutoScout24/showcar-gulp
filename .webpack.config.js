@@ -6,7 +6,7 @@ module.exports = {
                 use: {
                     loader: "babel-loader",
                     query: {
-                        presets: ['es2015']
+                        presets: [['es2015', { loose: true, modules: false }]],
                     }
                 }
                 // exclude: /(\/node_modules\/|test\.js|\.spec\.js$)/
