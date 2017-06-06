@@ -1,6 +1,6 @@
 {
   "name": "showcar-gulp",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "description": "Shared build steps for projects using the ShowCar UI Library",
   "main": "index.js",
   "scripts": {},
