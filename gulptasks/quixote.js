@@ -52,6 +52,8 @@ const helper = {
 };
 
 module.exports = (config) => {
+    require('es6-promise').polyfill();
+    
     window.__karma__.loaded = () => {}; //  prevent of execution mocha
     // https://zerokspot.com/weblog/2013/07/12/delay-test-execution-in-karma/
     const quixote = require('quixote');

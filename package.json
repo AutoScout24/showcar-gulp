@@ -62,6 +62,7 @@
     "mocha": "^3.1.2",
     "node-sass": "^4.5.3",
     "normalize.css": "^5.0.0",
+    "promiz": "^1.0.5",
     "quixote": "git+https://github.com/anders0l/quixote.git#tolerance",
     "sass-mq": "^3.3.2",
     "sinon": "^1.17.6",
