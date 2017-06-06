@@ -3,9 +3,11 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
-                use: 'babel-loader',
-                options: {
-                    presets: ['es2015s']
+                use: {
+                    loader: "babel-loader",
+                    query: {
+                        presets: ['es2015']
+                    }
                 }
                 // exclude: /(\/node_modules\/|test\.js|\.spec\.js$)/
             }
