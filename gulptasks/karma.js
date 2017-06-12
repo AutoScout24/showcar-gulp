@@ -18,6 +18,7 @@ module.exports = (gulp, options, done) => {
         'karma-chrome-launcher',
         'karma-ie-launcher',
         'karma-edge-launcher',
+        'karma-ios-simulator-launcher',
         'karma-browserstack-launcher',
         'karma-sourcemap-loader'].concat(options.plugins || []);
 
