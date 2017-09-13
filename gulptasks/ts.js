@@ -20,7 +20,7 @@ module.exports = (gulp, options) => {
       rules: [
         {
           test: /\.ts$/,
-          loader: 'ts-loader?compiler=typescript&+useCache&+useBabel&module=common'
+          loader: 'ts-loader?compiler=typescript&+useBabel&module=common'
         }]
     },
     plugins: []
