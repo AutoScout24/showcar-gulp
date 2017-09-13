@@ -68,7 +68,7 @@
     "sass-mq": "^3.3.2",
     "sinon": "^1.17.6",
     "sourcemapify": "^1.1.2",
-    "ts-loader": "^2.3.2",
+    "ts-loader": "2.3.2",
     "tslint": "^5.5.0",
     "typescript": "^2.4.2",
     "vinyl-buffer": "^1.0.0",
