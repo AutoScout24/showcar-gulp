@@ -63,7 +63,7 @@ module.exports = (gulp, options, done) => {
         bs_chrome_win: {
             base: 'BrowserStack',
             browser: 'Chrome',
-            browser_version: '57.0',
+            browser_version: 'latest',
             os: 'Windows',
             os_version: '10'
         },
