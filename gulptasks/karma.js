@@ -70,7 +70,7 @@ module.exports = (gulp, options, done) => {
         bs_firefox_win: {
             base: 'BrowserStack',
             browser: 'Firefox',
-            browser_version: 'latest',
+            browser_version: '61.0',
             os: 'Windows',
             os_version: '10'
         },
