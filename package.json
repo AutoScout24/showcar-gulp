@@ -69,6 +69,7 @@
     "sass-mq": "^3.3.2",
     "sinon": "^1.17.6",
     "sourcemapify": "^1.1.7",
+    "stylelint": "^10.1.0",
     "ts-loader": "2.3.2",
     "tslint": "^5.18.0",
     "typescript": "^2.9.2",
