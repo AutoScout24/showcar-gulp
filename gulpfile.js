@@ -71,10 +71,10 @@ gulp.task('tstest:watch', () => {
     gulp.watch(['test/test-src/!**!/!*.ts', 'test/ts-src/!**!/!*.ts'], ['karma']);
 });
 
-gulp.task('karma', gulp.series('jstest', 'tstest'), scgulp.karma({
+gulp.task('karma', gulp.series('jstest', 'tstest', scgulp.karma({
     dependencies: ['jstest', 'tstest'],
     files: ['test/dist/main.min.spec.js', 'test/dist/tsmain.min.spec.js']
-}));
+})));
 
 gulp.task('imagemin', scgulp.imagemin({
     entry: 'test/images/*.*',
