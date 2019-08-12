@@ -1,5 +1,6 @@
-const clean = require('gulp-clean');
+const del = require('del');
+const vinylPaths = require('vinyl-paths');
 
 module.exports = (gulp, options) => {
-    return gulp.src(options.files, { read: false }).pipe(clean({ force: true }));
+    return gulp.src(options.files, { read: false }).pipe(vinylPaths(del));
 };
