@@ -44,10 +44,10 @@ module.exports = (gulp, options, done) => {
         urlRoot,
         proxies,
         // use an extended timeout for browsers in case the service is busy
-        // browserNoActivityTimeout: 5 * 60000,
-        // captureTimeout: 5 * 60000,
-        // browserDisconnectTimeout: 4 * 60000,
-        // processKillTimeout: 4 * 60000,
+        browserNoActivityTimeout: 4 * 60000,
+        captureTimeout: 4 * 60000,
+        browserDisconnectTimeout: 4 * 60000,
+        processKillTimeout: 4 * 60000,
         browserDisconnectTolerance: 1,
     };
 
@@ -126,6 +126,7 @@ module.exports = (gulp, options, done) => {
         karmaConfig.reporters = options.reports || ['mocha'];
         karmaConfig.concurrency = options.concurrency || karmaConfig.browsers.length;
         karmaConfig.singleRun = true;
+        karmaConfig.timeout = 60 * 7;
     } else {
         karmaConfig.browsers = options.browsers || ['Electron'];
         karmaConfig.reporters = options.reports || ['mocha', 'BrowserStack'];
