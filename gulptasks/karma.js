@@ -126,7 +126,7 @@ module.exports = (gulp, options, done) => {
         karmaConfig.reporters = options.reports || ['mocha'];
         karmaConfig.concurrency = options.concurrency || karmaConfig.browsers.length;
         karmaConfig.singleRun = true;
-        karmaConfig.browserStack.timeout = 60 * 7;
+        karmaConfig.browserStack.timeout = 60 * 8; //8 minutes
     } else {
         karmaConfig.browsers = options.browsers || ['Electron'];
         karmaConfig.reporters = options.reports || ['mocha', 'BrowserStack'];
