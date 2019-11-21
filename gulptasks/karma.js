@@ -44,10 +44,10 @@ module.exports = (gulp, options, done) => {
         urlRoot,
         proxies,
         // use an extended timeout for browsers in case the service is busy
-        browserNoActivityTimeout: 5 * 60000,
-        captureTimeout: 5 * 60000,
-        browserDisconnectTimeout: 4 * 60000,
-        processKillTimeout: 4 * 60000,
+        // browserNoActivityTimeout: 5 * 60000,
+        // captureTimeout: 5 * 60000,
+        // browserDisconnectTimeout: 4 * 60000,
+        // processKillTimeout: 4 * 60000,
         browserDisconnectTolerance: 1,
     };
 

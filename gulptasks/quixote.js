@@ -7,7 +7,7 @@ const helper = {
             });
         }
         reloadFrame();
-        const reloadFrameOneMoreTimeForSlowDevices = setTimeout(() => reloadFrame(), 10000)
+        const reloadFrameOneMoreTimeForSlowDevices = setTimeout(() => reloadFrame(), 1000)
     },
 
     click: (el) => el.click(), //for consistency
