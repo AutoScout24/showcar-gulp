@@ -1,13 +1,14 @@
-const path = require('path');
 const KarmaServer = require('karma').Server;
 const globalConfig = require('../global-config');
 
 module.exports = (gulp, options, done) => {
-
     const files = options.files;
     files.push({ pattern: '**/*.js.map', included: false, watched: false });
-    const frameworks = ['mocha', 'chai', 'sinon'].concat(options.frameworks || []);
-    const plugins = ['karma-mocha-reporter',
+    const frameworks = ['mocha', 'chai', 'sinon'].concat(
+        options.frameworks || []
+    );
+    const plugins = [
+        'karma-mocha-reporter',
         'karma-mocha',
         'karma-sinon',
         'karma-chai',
@@ -19,16 +20,18 @@ module.exports = (gulp, options, done) => {
         'karma-ie-launcher',
         'karma-edge-launcher',
         'karma-browserstack-launcher',
-        'karma-sourcemap-loader'].concat(options.plugins || []);
+        'karma-sauce-launcher',
+        'karma-sourcemap-loader'
+    ].concat(options.plugins || []);
 
     const proxies = options.proxies || '';
     const urlRoot = options.proxies ? '/karma/' : '/'; // if  proxy, move karma to another url
     const preprocessors = options.preprocessors;
     let karmaConfig = {
-        // webpack configuration
-        webpack: require("../.webpack.config.js"),
+    // webpack configuration
+        webpack: require('../.webpack.config.js'),
         webpackMiddleware: {
-            stats: "errors-only"
+            stats: 'errors-only'
         },
         // logLevel: 'LOG_DEBUG', //keep for debugging
         browserConsoleLogOptions: {
@@ -48,7 +51,7 @@ module.exports = (gulp, options, done) => {
         captureTimeout: 4 * 60000,
         browserDisconnectTimeout: 4 * 60000,
         processKillTimeout: 4 * 60000,
-        browserDisconnectTolerance: 1,
+        browserDisconnectTolerance: 1
     };
 
     const browserStackCustomLaunchers = {
@@ -114,23 +117,85 @@ module.exports = (gulp, options, done) => {
             browser: 'Chrome Mobile',
             browser_version: '33',
             os_version: '4.4'
+        }
+    };
+
+    const saucelabsCustomLaunchers = {
+        sl_chrome: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            version: 'latest'
         },
-    }
+        sl_firefox: {
+            base: 'SauceLabs',
+            browserName: 'firefox',
+            version: 'latest'
+        },
+        sl_ie: {
+            base: 'SauceLabs',
+            browserName: 'internet explorer',
+            platform: 'Windows 8.1',
+            version: '11'
+        },
+        sl_safari: {
+            base: 'SauceLabs',
+            browserName: 'safari',
+            platform: 'OS X 10.11',
+            version: '10.0'
+        },
+        sl_edge: {
+            base: 'SauceLabs',
+            browserName: 'MicrosoftEdge',
+            platform: 'Windows 10',
+            version: 'latest'
+        }
+    };
 
     if (options.browserStack) {
-        karmaConfig.browserStack = typeof(options.browserStack) === 'object' ? options.browserStack : {};
+        karmaConfig.browserStack =
+      typeof options.browserStack === 'object' ? options.browserStack : {};
         karmaConfig.browserStack.username = process.env.BROWSERSTACK_USERNAME;
         karmaConfig.browserStack.accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
-        karmaConfig.customLaunchers = options.customLaunchers ? options.customLaunchers : browserStackCustomLaunchers;
-        karmaConfig.browsers = options.browsers ? options.browsers : ['bs_safari_mac', 'bs_chrome_win', 'bs_firefox_win', 'bs_edge_win', 'bs_ie11_win', 'bs_iphone6s', 'bs_iphone7', 'bs_samsungS5_android', 'bs_samsungS5_chrome'];
+        karmaConfig.customLaunchers = options.customLaunchers
+            ? options.customLaunchers
+            : browserStackCustomLaunchers;
+        karmaConfig.browsers = options.browsers
+            ? options.browsers
+            : [
+                'bs_safari_mac',
+                'bs_chrome_win',
+                'bs_firefox_win',
+                'bs_edge_win',
+                'bs_ie11_win',
+                'bs_iphone6s',
+                'bs_iphone7',
+                'bs_samsungS5_android',
+                'bs_samsungS5_chrome'
+            ];
         karmaConfig.reporters = options.reports || ['mocha'];
-        karmaConfig.concurrency = options.concurrency || karmaConfig.browsers.length;
+        karmaConfig.concurrency =
+      options.concurrency || karmaConfig.browsers.length;
         karmaConfig.singleRun = true;
         karmaConfig.browserStack.timeout = 60 * 8; //8 minutes
+    } else if (options.sauceLabs) {
+        karmaConfig.sauceLabs =
+      typeof options.sauceLabs === 'object' ? options.sauceLabs : {};
+        karmaConfig.sauceLabs.username = process.env.SAUCE_USERNAME;
+        karmaConfig.sauceLabs.accessKey = process.env.SAUCE_ACCESS_KEY;
+        karmaConfig.customLaunchers = options.customLaunchers
+            ? options.customLaunchers
+            : saucelabsCustomLaunchers;
+        karmaConfig.browsers = options.browsers
+            ? options.browsers
+            : ['sl_chrome', 'sl_firefox', 'sl_ie', 'sl_safari', 'sl_edge'];
+        karmaConfig.reporters = options.reports || ['dots', 'saucelabs'];
+        karmaConfig.singleRun = true;
+        karmaConfig.concurrency =
+      options.concurrency || karmaConfig.browsers.length;
     } else {
         karmaConfig.browsers = options.browsers || ['Electron'];
         karmaConfig.reporters = options.reports || ['mocha', 'BrowserStack'];
-        karmaConfig.singleRun = ! globalConfig.devmode || options.singleRun;
+        karmaConfig.singleRun = !globalConfig.devmode || options.singleRun;
     }
     karmaConfig.client = {
         captureConsole: true,
@@ -140,11 +205,11 @@ module.exports = (gulp, options, done) => {
         },
         mochaReporter: {
             output: 'full',
-            maxLogLines: - 1
+            maxLogLines: -1
         }
     };
 
-    const server = new KarmaServer(karmaConfig, (exitCode) => {
+    const server = new KarmaServer(karmaConfig, exitCode => {
         done();
         process.exit(exitCode);
     });
