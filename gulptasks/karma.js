@@ -33,7 +33,7 @@ module.exports = (gulp, options, done) => {
         webpackMiddleware: {
             stats: 'errors-only'
         },
-        logLevel: 'LOG_DEBUG', //keep for debugging
+        logLevel: 'DEBUG', //keep for debugging
         browserConsoleLogOptions: {
             level: 'log',
             terminal: true
