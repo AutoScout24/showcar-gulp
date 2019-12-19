@@ -33,7 +33,7 @@ module.exports = (gulp, options, done) => {
         webpackMiddleware: {
             stats: 'errors-only'
         },
-        // logLevel: 'LOG_DEBUG', //keep for debugging
+        logLevel: 'LOG_DEBUG', //keep for debugging
         browserConsoleLogOptions: {
             level: 'log',
             terminal: true
@@ -51,7 +51,16 @@ module.exports = (gulp, options, done) => {
         captureTimeout: 4 * 60000,
         browserDisconnectTimeout: 4 * 60000,
         processKillTimeout: 4 * 60000,
-        browserDisconnectTolerance: 1
+        browserDisconnectTolerance: 1,
+        specReporter: {
+            maxLogLines: 5,             // limit number of lines logged per test
+            suppressErrorSummary: false, // do not print error summary
+            suppressFailed: false,      // do not print information about failed tests
+            suppressPassed: true,      // do not print information about passed tests
+            suppressSkipped: false,      // do not print information about skipped tests
+            showSpecTiming: false,      // print the time elapsed for each spec
+            failFast: false              // test would finish with error when a first fail occurs.
+        }
     };
 
     const browserStackCustomLaunchers = {
@@ -117,10 +126,7 @@ module.exports = (gulp, options, done) => {
             browser: 'Chrome Mobile',
             browser_version: '33',
             os_version: '4.4'
-        }
-    };
-
-    const saucelabsCustomLaunchers = {
+        },
         sl_chrome: {
             base: 'SauceLabs',
             browserName: 'chrome',
