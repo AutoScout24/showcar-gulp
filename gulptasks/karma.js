@@ -182,6 +182,8 @@ module.exports = (gulp, options, done) => {
       typeof options.sauceLabs === 'object' ? options.sauceLabs : {};
         karmaConfig.sauceLabs.username = process.env.SAUCE_USERNAME;
         karmaConfig.sauceLabs.accessKey = process.env.SAUCE_ACCESS_KEY;
+        karmaConfig.sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
+        karmaConfig.sauceLabs.startConnect = false;
         karmaConfig.customLaunchers = options.customLaunchers
             ? options.customLaunchers
             : saucelabsCustomLaunchers;
