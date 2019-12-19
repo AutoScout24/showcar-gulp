@@ -63,7 +63,7 @@ module.exports = (gulp, options, done) => {
         }
     };
 
-    const browserStackCustomLaunchers = {
+    const launchers = {
         bs_safari_mac: {
             base: 'BrowserStack',
             browser: 'Safari',
@@ -164,7 +164,7 @@ module.exports = (gulp, options, done) => {
         karmaConfig.browserStack.accessKey = process.env.BROWSERSTACK_ACCESS_KEY;
         karmaConfig.customLaunchers = options.customLaunchers
             ? options.customLaunchers
-            : browserStackCustomLaunchers;
+            : launchers;
         karmaConfig.browsers = options.browsers
             ? options.browsers
             : [
@@ -192,7 +192,7 @@ module.exports = (gulp, options, done) => {
         karmaConfig.sauceLabs.startConnect = false;
         karmaConfig.customLaunchers = options.customLaunchers
             ? options.customLaunchers
-            : saucelabsCustomLaunchers;
+            : launchers;
         karmaConfig.browsers = options.browsers
             ? options.browsers
             : ['sl_chrome', 'sl_firefox', 'sl_ie', 'sl_safari', 'sl_edge'];
