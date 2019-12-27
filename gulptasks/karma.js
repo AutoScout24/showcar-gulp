@@ -186,8 +186,8 @@ module.exports = (gulp, options, done) => {
     } else if (options.sauceLabs) {
         karmaConfig.sauceLabs =
       typeof options.sauceLabs === 'object' ? options.sauceLabs : {};
-        karmaConfig.sauceLabs.username = process.env.SAUCE_USERNAME;
-        karmaConfig.sauceLabs.accessKey = process.env.SAUCE_ACCESS_KEY;
+        karmaConfig.sauceLabs.username = options.sauceLabs.username || process.env.SAUCE_USERNAME;
+        karmaConfig.sauceLabs.accessKey = options.sauceLabs.accessKey || process.env.SAUCE_ACCESS_KEY;
         karmaConfig.sauceLabs.tunnelIdentifier = process.env.TRAVIS_JOB_NUMBER;
         karmaConfig.sauceLabs.startConnect = false;
         karmaConfig.customLaunchers = options.customLaunchers
