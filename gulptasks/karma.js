@@ -33,7 +33,7 @@ module.exports = (gulp, options, done) => {
         webpackMiddleware: {
             stats: 'errors-only'
         },
-        logLevel: 'DEBUG', //keep for debugging
+        // logLevel: 'DEBUG', //keep for debugging
         browserConsoleLogOptions: {
             level: 'log',
             terminal: true
@@ -52,15 +52,6 @@ module.exports = (gulp, options, done) => {
         browserDisconnectTimeout: 4 * 60000,
         processKillTimeout: 4 * 60000,
         browserDisconnectTolerance: 1,
-        specReporter: {
-            maxLogLines: 5,             // limit number of lines logged per test
-            suppressErrorSummary: false, // do not print error summary
-            suppressFailed: false,      // do not print information about failed tests
-            suppressPassed: true,      // do not print information about passed tests
-            suppressSkipped: false,      // do not print information about skipped tests
-            showSpecTiming: false,      // print the time elapsed for each spec
-            failFast: false              // test would finish with error when a first fail occurs.
-        }
     };
 
     const launchers = {
