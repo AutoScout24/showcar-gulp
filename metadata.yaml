@@ -4,7 +4,7 @@ name: showcar-gulp
 description: NPM package with gulp-tasks for projects using the ShowCar UI Library
 vertical: as24
 owners:
-  - '#AS24-acquisition-cxp-ds@scout24.com'
+  - '#AS24-UG-Activation-ds@autoscout24.com'
   - as24-cxp-acquisition@scout24.com
 availability: false
 integrity: false
