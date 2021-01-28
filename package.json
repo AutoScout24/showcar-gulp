@@ -33,7 +33,7 @@
     "chai": "^3.5.0",
     "cssnano": "^4.1.10",
     "del": "^5.0.0",
-    "electron": "^1.8.8",
+    "electron": "^9.4.0",
     "gulp": "^4.0.2",
     "gulp-eslint": "^4.0.2",
     "gulp-imagemin": "^6.0.0",
